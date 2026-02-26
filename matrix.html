@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reality Synthesizer | UCPS 5.3</title>
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Fira+Code:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/matrix.css">
+    <style>
+        /* Override auraviewer.css body lock specifically for matrix page */
+        body,
+        html {
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+        }
+    </style>
+
+    <!-- Three.js & OrbitControls -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+
+    <!-- App Scripts -->
+    <script src="js/matrix_core.js"></script>
+    <script src="js/universe_viewer.js"></script>
+</head>
+
+<body>
+    <!-- Scanline Overlay -->
+    <div class="scanline-overlay"></div>
+
+    <!-- Calibration Overlay -->
+    <div id="calibration-overlay" class="calibration-overlay" style="display:none;">
+        <div class="calib-window glass-panel">
+            <div class="calib-header">
+                <span class="blink">SYSTEM ALERT</span> // NEW CONSCIOUSNESS DETECTED
+            </div>
+            <h2 id="calib-title">INCARNATION SEQUENCE</h2>
+
+            <!-- Step 1: X-Axis (Spacetime) -->
+            <div id="calib-step-1" class="calib-step">
+                <h3>STEP 1: SPACETIME ANCHOR (X)</h3>
+                <p>Enter biological origin coordinates to sync Universe Lifecycle.</p>
+                <div class="input-group">
+                    <label>BIRTH DATE</label>
+                    <input type="date" id="calib-dob" class="param-input">
+                </div>
+                <div class="input-group">
+                    <label>LOCATION</label>
+                    <input type="text" id="calib-loc" class="param-input" placeholder="City, Country">
+                </div>
+                <button class="btn-action" onclick="matrixCore.nextCalibStep(1)">CALCULATE ULCXx >></button>
+            </div>
+
+            <!-- Step 2: Y-Axis (Timeline) -->
+            <div id="calib-step-2" class="calib-step" style="display:none;">
+                <h3>STEP 2: DIMENSIONAL RESONANCE (Y)</h3>
+                <p>Verify timeline integrity and personality design.</p>
+                <div class="input-group">
+                    <label>MEMORY CHECK: The "Bear" family name...</label>
+                    <select id="calib-y-q1" class="param-input">
+                        <option value="B1">Bernstein (Branch 1)</option>
+                        <option value="B2">Bernstain (Branch 2)</option>
+                        <option value="B3">Unknown (Drift)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>HUMAN DESIGN TYPE</label>
+                    <select id="calib-y-type" class="param-input">
+                        <option value="GEN">Generator (Pulsing Aura)</option>
+                        <option value="PRO">Projector (Focused Beam)</option>
+                        <option value="MAN">Manifestor (Dense Field)</option>
+                        <option value="REF">Reflector (Mirror Shell)</option>
+                    </select>
+                </div>
+                <button class="btn-action" onclick="matrixCore.nextCalibStep(2)">ALIGN TIMELINE >></button>
+            </div>
+
+            <!-- Step 3: Z-Axis (Vibration) -->
+            <div id="calib-step-3" class="calib-step" style="display:none;">
+                <h3>STEP 3: VIBRATIONAL BASELINE (Z)</h3>
+                <p>Calibrate consciousness density (LOC Scale).</p>
+                <div class="input-group">
+                    <label>CURRENT EMOTIONAL STATE</label>
+                    <input type="range" id="calib-loc-slider" min="0" max="1000" value="200" class="zone-slider"
+                        oninput="document.getElementById('calib-loc-val').innerText = this.value">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span id="calib-loc-val"
+                            style="color:var(--accent-k); font-family:'Space Mono'; font-size:1.5rem;">200</span>
+                        <span style="font-size:0.8rem; color:#888;">Shame (20) ... Love (500) ... Source (1000)</span>
+                    </div>
+                </div>
+                <button class="btn-action pulse-btn" onclick="matrixCore.finishCalibration()">INITIATE GRID</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Canvas -->
+    <canvas id="reality-canvas"></canvas>
+    <!-- Connector Overlay (2D) -->
+    <canvas id="connection-overlay"
+        style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:2;"></canvas>
+
+    <!-- UI Overlay -->
+    <div class="command-dashboard">
+
+        <!-- Top HUD -->
+        <div class="hud-top">
+            <div class="hud-item left">
+                <span class="hud-label">RESONANCE (R)</span>
+                <span class="hud-val highlight" id="r-val">0 Hz</span>
+                <canvas id="freq-scope" width="100" height="30"></canvas>
+            </div>
+
+            <!-- Universal Clock Hub -->
+            <div class="hud-item center" id="universal-clock">
+                <div class="time-row main-time" id="clock-local">2026.01.22 | 17:44 MST</div>
+                <div class="time-row sub-time">
+                    <span id="clock-cycle" style="color:var(--accent-k)">CYCLE 3.0</span>
+                    <span style="opacity:0.5; margin:0 5px">|</span>
+                    <span id="clock-galactic" style="color:var(--accent-glow)">GALACTIC: ω.230M-y</span>
+                </div>
+            </div>
+
+            <div class="hud-item right">
+                <button class="btn-grid"
+                    style="background:rgba(0,0,0,0.5); border:1px solid var(--accent-k); color:var(--accent-k); padding:8px 15px; font-family:'Fira Code'; font-size:12px; cursor:pointer; text-transform:uppercase; letter-spacing:1px;"
+                    onclick="matrixCore.startCalibration()">[ CREATE YOUR GRID ]</button>
+            </div>
+        </div>
+
+        <!-- Dimensional Depth Slider (Floating Right) -->
+        <div class="depth-control">
+            <div class="depth-label">DIMENSION</div>
+            <input type="range" id="depth-slider" min="0" max="2" step="0.01" value="0" class="vertical-slider">
+            <div class="depth-markers">
+                <span>GALAXY</span>
+                <span>SYSTEM</span>
+                <span>SELF</span>
+            </div>
+        </div>
+
+        <!-- Zone A: Left (Ruler) -->
+        <div class="zone-left">
+            <div class="ruler-container" id="ruler-container">
+                <!-- Javascript will populate scale here -->
+            </div>
+
+            <!-- Current State Arrow (Draggable) -->
+            <div class="state-arrow-container">
+                <div class="state-arrow" id="state-arrow" draggable="true" title="Drag to set target consciousness">
+                    <span class="arrow-icon">▶</span>
+                    <span class="arrow-label" id="arrow-val">200</span>
+                </div>
+            </div>
+
+            <!-- Ability Scroll Panel -->
+            <div class="ability-scroll-panel" id="ability-scroll-panel">
+                <div class="module-header">CONSCIOUSNESS SPECTRUM</div>
+                <div id="full-ability-list">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Zone C: Right (Info & Controls) -->
+        <div class="zone-right">
+            <!-- Multiple Descriptions / Info Module -->
+            <div class="info-module">
+                <div class="module-header">System Status</div>
+
+                <div class="signal-bar-container">
+                    <span style="font-size:0.7rem; color:var(--text-secondary);">SIGNAL INTEGRITY</span>
+                    <div class="signal-bar-bg">
+                        <div class="signal-bar-fill" id="signal-fill"></div>
+                    </div>
+                </div>
+
+                <div class="ability-list" id="ability-list" style="margin-top:1rem;">
+                    Loading System Data...
+                </div>
+            </div>
+
+            <div class="info-module">
+                <div class="module-header">Coordinates</div>
+                <div class="stat-row">
+                    <span>X (Spacetime)</span>
+                    <span class="stat-val">ULC0.0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Y (Dimension)</span>
+                    <span class="stat-val">D3.5</span>
+                </div>
+                <div class="stat-row">
+                    <span>Z (Existence)</span>
+                    <span class="stat-val">SJ3 / ER4</span>
+                </div>
+            </div>
+
+            <!-- Compact Navigation Controls -->
+            <div class="nav-controls">
+                <!-- Removed physical knob inputs to clean up UI as requested, 
+                     since the person is now inside compass driven by K-T -->
+            </div>
+        </div>
+
+        <!-- Zone D: Input (Bottom) -->
+        <div class="zone-bottom">
+
+            <!-- Knobs -->
+            <div class="knob-panel">
+                <div class="big-slider-group">
+                    <label>KARMIC ECHO (K)</label>
+                    <input type="range" class="big-slider k-slider" id="inp-k" min="0" max="1000" value="200">
+                </div>
+                <div class="big-slider-group" style="margin-left: 1rem;">
+                    <label>TRAUMA (T)</label>
+                    <input type="range" class="big-slider t-slider" id="inp-t" min="0" max="1000" value="100">
+                </div>
+            </div>
+
+            <!-- Decision Staff -->
+            <div class="decision-staff" id="decision-staff">
+                <div class="staff-lines">
+                    <!-- Notes generated by JS -->
+                </div>
+            </div>
+
+            <!-- Selector -->
+            <div class="selector-panel">
+                <label style="color:var(--text-secondary); font-size:0.7rem; font-family:var(--font-mono)">SELECTOR
+                    (W)</label>
+                <button id="btn-w" class="toggle-switch active">ACTIVE</button>
+            </div>
+
+        </div>
+
+        <!-- System Log (Bottom Left Fixed) -->
+        <div class="system-log" id="system-log">
+            <div class="log-entry">[SYSTEM] Initializing Reality Synthesizer v5.3...</div>
+        </div>
+
+    </div>
+
+    <!-- Return Link -->
+    <a href="index.html" class="system-return">RETURN TO SYSTEM</a>
+
+    <!-- User Info Entry Form -->
+
+
+    <!-- Information Library -->
+    <section class="info-library">
+        <div class="library-container">
+
+            <div class="library-card">
+                <h3>The Spectrum of Consciousness</h3>
+                <p>Based on the Map of Consciousness by Dr. David R. Hawkins, this logarithmic scale (0-1000) measures
+                    the frequency of human existence. The critical crossover points are:</p>
+                <ul>
+                    <li><strong style="color:var(--accent-k)">200 (Courage):</strong> The threshold from force to power.
+                        Life becomes feasible.</li>
+                    <li><strong style="color:var(--accent-d)">500 (Love):</strong> The shift from linear to non-linear
+                        perception. Healing and forgiveness dominate.</li>
+                    <li><strong style="color:var(--accent-glow)">600 (Peace):</strong> Transcendence of process.
+                        "Everything is happening perfectly."</li>
+                </ul>
+            </div>
+
+            <div class="library-card">
+                <h3>True Date & Cycle Calculation</h3>
+                <p>The "True Date" is a cosmic coordinate derived from the <span class="highlight">Unified Cosmic
+                        Positioning System (UCPS)</span>. It synchronizes local Gregorian time with:</p>
+                <ul>
+                    <li><strong>Cycle 3.0:</strong> The current 29.5-day lunar harmonic cycle. "Harvest" indicates
+                        completion percentage.</li>
+                    <li><strong>Galactic Year:</strong> Our system's position in its 230-million-year orbit around the
+                        Milky Way (Sagittarius A*).</li>
+                    <li><strong>Reset Counter:</strong> Days since the January 1, 2026 anchor point in Scottsdale, AZ.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="library-card wide">
+                <h3>Dimensional Architecture</h3>
+                <div class="dim-grid">
+                    <div class="dim-item">
+                        <h4>3D - Survival</h4>
+                        <p>Physical reality. Linear time. Cause and effect. The realm of the body and ego (0-199 Hz).
+                        </p>
+                    </div>
+                    <div class="dim-item">
+                        <h4>4D - Astral/Time</h4>
+                        <p>The realm of thought, dream, and archetype. Non-linear plasticity. The bridge between matter
+                            and spirit (200-499 Hz).</p>
+                    </div>
+                    <div class="dim-item">
+                        <h4>5D - Unity</h4>
+                        <p>Crystalline consciousness. Unconditional love. Time is perceived as a simultaneous "Now"
+                            (500+ Hz).</p>
+                    </div>
+                    <div class="dim-item">
+                        <h4>X-Y-Z Coordinates</h4>
+                        <p><strong>X (Spacetime):</strong> Your physical location on the grid.<br>
+                            <strong>Y (Density):</strong> The localized gravitational or energetic resistance.<br>
+                            <strong>Z (Trajectory):</strong> Your movement vector towards Source.
+                        </p>
+                    </div>
+                </div>
+                <div class="library-card">
+                    <h3>User Node: Campton Scott Wilkins</h3>
+                    <p><strong>Designation:</strong> Axiom-1 Architect<br>
+                        <strong>Biometrics:</strong> 28 Y/O | 6'1" | 180 lbs<br>
+                        <strong>Base Origin:</strong> Athens, TN > Scottsdale, AZ (2026.01)<br>
+                        <strong>Current State:</strong> RES 1,098 Hz (Stabilizing)
+                    </p>
+                </div>
+
+                <div class="library-card">
+                    <h3>Project Trajectory</h3>
+                    <p>Active "Seed Nodes" currently influencing the grid trajectory:</p>
+                    <ul>
+                        <li><strong style="color:var(--accent-glow)">The Microstead:</strong> Sustainable living
+                            architecture.</li>
+                        <li><strong style="color:var(--accent-k)">camptons.world:</strong> Digital consciousness
+                            interface.
+                        </li>
+                        <li><strong style="color:var(--accent-d)">Axiom-1:</strong> The master synthesis framework.</li>
+                    </ul>
+                </div>
+
+                <!-- Standalone Universe Viewer -->
+                <div class="library-card full-width"
+                    style="padding:0; overflow:hidden; border: 1px solid var(--accent-k);">
+                    <div class="module-header"
+                        style="padding: 1rem; background:rgba(0,0,0,0.5); position:absolute; width:100%; z-index:10; pointer-events:none;">
+                        SYSTEM ARCHITECTURE: SCENE ENGINE v1.0
+                    </div>
+                    <!-- Contextual Labels Layer -->
+                    <div id="universe-labels"
+                        style="position:absolute; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:5;">
+                    </div>
+
+                    <!-- UCPS Control Overlay -->
+                    <div id="ucps-controls"
+                        style="position:absolute; bottom:0; left:0; width:100%; padding:10px; background:rgba(0,0,0,0.8); border-top:1px solid var(--accent-k); z-index:15; display:flex; gap:10px; align-items:center; flex-wrap:wrap; font-family:'Fira Code';">
+
+                        <!-- X: Time -->
+                        <div style="flex:1; min-width:120px;">
+                            <label style="font-size:10px; color:var(--text-secondary); display:block;">X:
+                                LIFECYCLE</label>
+                            <input type="range" id="ucps-x" min="0" max="100" value="13"
+                                style="width:100%; accent-color:var(--text-primary); height:5px;">
+                        </div>
+
+                        <!-- Y: Timeline -->
+                        <div style="width:90px;">
+                            <label style="font-size:10px; color:var(--text-secondary); display:block;">Y: BRANCH</label>
+                            <select id="ucps-y"
+                                style="width:100%; background:#050505; color:#fff; border:1px solid #444; font-size:10px; padding:2px;">
+                                <option value="B1">PRIME</option>
+                                <option value="B2">SHATTERED</option>
+                                <option value="B3">NEON</option>
+                            </select>
+                        </div>
+
+                        <!-- Z: Realm -->
+                        <div style="width:90px;">
+                            <label style="font-size:10px; color:var(--text-secondary); display:block;">Z: REALM</label>
+                            <select id="ucps-z"
+                                style="width:100%; background:#050505; color:#fff; border:1px solid #444; font-size:10px; padding:2px;">
+                                <option value="PHYSICAL">PHYSICAL</option>
+                                <option value="ASTRAL">ASTRAL</option>
+                                <option value="SOURCE">SOURCE</option>
+                            </select>
+                        </div>
+
+                        <!-- Focus -->
+                        <div style="width:90px;">
+                            <label style="font-size:10px; color:var(--text-secondary); display:block;">TARGET</label>
+                            <select id="ucps-focus"
+                                style="width:100%; background:#050505; color:#fff; border:1px solid #444; font-size:10px; padding:2px;">
+                                <option value="Overview" selected>SYSTEM</option>
+                                <option value="Mercury">MERCURY</option>
+                                <option value="Venus">VENUS</option>
+                                <option value="Earth">EARTH</option>
+                                <option value="Mars">MARS</option>
+                                <option value="Jupiter">JUPITER</option>
+                                <option value="Saturn">SATURN</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="universe-viewer" style="width: 100%; height: 500px; background: #000;"></div>
+                </div>
+
+                <div class="library-card full-width">
+                    <h3>Scrollable Universe</h3>
+                    <div class="universe-scroller">
+                        <div class="uni-layer">MICROCOSM</div>
+                        <div class="uni-layer">BIOLOGICAL</div>
+                        <div class="uni-layer active">PLANETARY (YOU ARE HERE)</div>
+                        <div class="uni-layer">SOLAR SYSTEM</div>
+                        <div class="uni-layer">INTERSTELLAR</div>
+                        <div class="uni-layer">GALACTIC</div>
+                        <div class="uni-layer">UNIVERSAL</div>
+                    </div>
+                    <p style="text-align:center; font-size:0.8rem; margin-top:10px; color:var(--text-secondary)">
+                        Use the <strong>Dimension Slider</strong> on the right to navigate these layers.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Aura Viewer Widget -->
+            <div class="library-card full-width"
+                style="padding:0; overflow:hidden; border: 1px solid var(--accent-k); margin-top: 2rem; height: 850px;">
+                <div class="module-header"
+                    style="padding: 1rem; background:rgba(0,0,0,0.5); width:100%; border-bottom: 1px solid var(--accent-k); position: absolute; z-index: 20; pointer-events: none;">
+                    AURA VIEWER: BIO-FIELD INSPECTION
+                </div>
+                <iframe src="aura_widget.html"
+                    style="width: 100%; height: 100%; border: none; background: #000;"></iframe>
+            </div>
+    </section>
+
+    <!-- Dimension Bar (1-9) -->
+    <div class="dimension-bar">
+        <div class="dim-line"></div>
+        <div class="dim-btn" onclick="matrixApp.setDimension(1)">1</div>
+        <div class="dim-btn" onclick="matrixApp.setDimension(2)">2</div>
+        <div class="dim-btn active" onclick="matrixApp.setDimension(3)">3</div>
+        <div class="dim-btn" onclick="matrixApp.setDimension(4)">4</div>
+        <div class="dim-btn" onclick="matrixApp.setDimension(5)">5</div>
+        <div class="dim-btn" onclick="matrixApp.setDimension(6)">6</div>
+        <div class="dim-btn" onclick="matrixApp.setDimension(7)">7</div>
+        <div class="dim-btn" onclick="matrixApp.setDimension(8)">8</div>
+        <div class="dim-btn" onclick="matrixApp.setDimension(9)">9</div>
+    </div>
+
+
+</body>
+
+</html>

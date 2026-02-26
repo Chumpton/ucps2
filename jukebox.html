@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reality Synthesizer</title>
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;700&family=Fira+Code:wght@400;700&display=swap"
+        rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/jukebox.css">
+
+    <!-- Three.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body class="blueprint-theme">
+
+    <a href="index.html" class="back-btn">← RETURN TO SYSTEM</a>
+
+    <div class="header-panel ui-layer" style="height: auto; width: auto; pointer-events: none;">
+        <h1>REALITY SYNTHESIZER</h1>
+        <div class="subtitle">JUKEBOX PROTOCOL v1.0</div>
+    </div>
+
+    <!-- 3D Canvas Layer -->
+    <canvas id="reality-canvas"></canvas>
+
+    <!-- UI Overlay Layer -->
+    <div class="ui-layer">
+
+        <!-- Soul Panel (Left) -->
+        <div class="panel left-panel">
+            <div class="panel-header">Internal State</div>
+
+            <div class="control-group">
+                <label class="control-label">KARMIC ECHO (K)</label>
+                <input type="range" min="0" max="100" value="20" class="blueprint-slider" id="slider-k">
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">TRAUMA LOAD (T)</label>
+                <input type="range" min="0" max="100" value="10" class="blueprint-slider" id="slider-t">
+            </div>
+
+            <div class="control-group" style="display: flex; align-items: center; justify-content: space-between;">
+                <label class="control-label" style="margin: 0;">SELECTOR (W)</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked id="switch-w">
+                    <span class="slider-switch"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Compass Panel (Right) -->
+        <div class="panel right-panel">
+            <div class="panel-header">Perception</div>
+
+            <!-- SVG Compass Visual -->
+            <div style="position: relative; width: 150px; height: 150px; margin: 0 auto;">
+                <svg class="compass-ring-svg" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" stroke="#2F3E46" stroke-width="2" fill="none"
+                        stroke-dasharray="5,5" />
+                    <circle cx="50" cy="50" r="35" stroke="#6BA2A8" stroke-width="1" fill="none" />
+                    <line x1="50" y1="5" x2="50" y2="15" stroke="#D96C4A" stroke-width="2" />
+                    <line x1="50" y1="85" x2="50" y2="95" stroke="#2F3E46" stroke-width="2" />
+                    <line x1="5" y1="50" x2="15" y2="50" stroke="#2F3E46" stroke-width="2" />
+                    <line x1="85" y1="50" x2="95" y2="50" stroke="#2F3E46" stroke-width="2" />
+                    <!-- Needle -->
+                    <polygon points="50,20 60,50 50,80 40,50" fill="#2F3E46" opacity="0.3" />
+                </svg>
+                <div
+                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem;">
+                    🌍
+                </div>
+            </div>
+
+            <div class="compass-stat" id="compass-status">Heading: ALIGNED</div>
+
+            <div class="control-group" style="margin-top: 1.5rem;">
+                <label class="control-label">PRESSURE (Vol)</label>
+                <input type="range" min="0" max="100" value="50" class="blueprint-slider" id="slider-vol">
+            </div>
+        </div>
+
+        <!-- Free Will Panel (Bottom) -->
+        <div class="panel bottom-panel">
+            <div class="panel-header" style="width: 100%; border: none; margin-bottom: 0.5rem;">
+                Decisions ($D^n$) - Timeline Branch
+            </div>
+
+            <div class="music-staff">
+                <button class="music-note-btn active" data-val="1"></button>
+                <button class="music-note-btn" data-val="2"></button>
+                <button class="music-note-btn" data-val="3"></button>
+                <button class="music-note-btn" data-val="4"></button>
+                <button class="music-note-btn" data-val="5"></button>
+                <button class="music-note-btn" data-val="6"></button>
+                <button class="music-note-btn" data-val="7"></button>
+            </div>
+
+            <div id="timeline-display" class="pulse-text"
+                style="margin-top: 10px; font-family: var(--font-mono); color: var(--bp-dark); font-weight: bold;">
+                CURRENT REALITY: BASELINE
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/jukebox.js"></script>
+</body>
+
+</html>

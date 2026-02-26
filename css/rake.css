@@ -1,0 +1,95 @@
+/* Rake / Arrow Connector Styles */
+.rake-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 0.2rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+    /* Space for the stem */
+}
+
+.coord-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.coord-text {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    padding: 0 0.2rem;
+    font-variant-numeric: tabular-nums;
+    font-family: 'Space Mono', monospace;
+}
+
+.coord-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5px;
+    height: 30px;
+    /* Fixed height for alignment */
+    width: 20px;
+}
+
+.coord-arrow-up {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 8px solid var(--accent-cyan);
+}
+
+.coord-stem {
+    width: 2px;
+    background-color: var(--accent-cyan);
+    flex: 1;
+    /* Fills remaining height */
+    box-shadow: 0 0 5px var(--accent-cyan);
+}
+
+.rake-baseline {
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-cyan);
+    box-shadow: 0 0 10px var(--accent-cyan);
+    border-radius: 2px;
+    margin-top: 0;
+}
+
+.coord-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    /* Bold */
+    font-family: var(--font-heading);
+    /* Rounded Quicksand */
+    color: var(--accent-cyan);
+    text-transform: uppercase;
+    margin-top: 6px;
+    letter-spacing: 0.05em;
+    opacity: 1;
+    text-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
+}
+
+/* Adjust wrapper to handle the baseline if we want it strictly connected */
+/* Actually, a single horizontal line below all items might be easier */
+.coords-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+    margin: 0 auto 2rem auto;
+    /* Centered */
+}
+
+.coord-dot {
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.3);
+    align-self: flex-start;
+    /* Align with text */
+    padding-top: 2px;
+}
