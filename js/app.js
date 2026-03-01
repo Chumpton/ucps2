@@ -396,12 +396,11 @@ function startMovieMode() {
     const scrollEl = findScrollDriver();
 
     if (!scrollEl) {
-        // Widget may not have initialized yet, retry after a moment
         if (btn) btn.textContent = '⏳ Loading...';
         setTimeout(() => {
             const retryEl = findScrollDriver();
             if (retryEl) {
-                startAutoScroll(retryEl, btn);
+                runMovieSequence(retryEl, btn);
             } else if (btn) {
                 btn.textContent = '🎬 Movie Mode';
             }
@@ -409,11 +408,52 @@ function startMovieMode() {
         return;
     }
 
-    // Reset scroll to top first
-    scrollEl.scrollTop = 0;
-    setTimeout(() => {
+    runMovieSequence(scrollEl, btn);
+}
+
+function runMovieSequence(scrollEl, btn) {
+    const sections = scrollEl.querySelectorAll('.snap-section');
+    if (!sections.length) {
+        // Fallback: simple continuous scroll if no snap sections found
         startAutoScroll(scrollEl, btn);
-    }, 500);
+        return;
+    }
+
+    if (btn) {
+        btn.textContent = '⏸ Stop Movie';
+        btn.style.borderColor = 'rgba(255,100,100,0.6)';
+        btn.style.color = 'rgba(255,100,100,0.9)';
+    }
+
+    // Reset to top
+    scrollEl.scrollTop = 0;
+    let currentIndex = 0;
+    movieModeScrollEl = scrollEl;
+
+    function advanceToNext() {
+        if (!movieModeInterval && currentIndex > 0) return; // stopped
+
+        if (currentIndex >= sections.length) {
+            stopMovieMode();
+            return;
+        }
+
+        const section = sections[currentIndex];
+        // Smooth scroll to this section
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Calculate reading time based on text content
+        const text = section.textContent || '';
+        const wordCount = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+        // ~200 words per minute, minimum 4 seconds per section, max 15 seconds
+        const readingMs = Math.max(4000, Math.min(15000, (wordCount / 200) * 60000));
+
+        currentIndex++;
+        movieModeInterval = setTimeout(advanceToNext, readingMs + 1500); // +1.5s for scroll animation
+    }
+
+    // Start after a brief delay
+    movieModeInterval = setTimeout(advanceToNext, 1000);
 }
 
 function startAutoScroll(el, btn) {
@@ -427,7 +467,6 @@ function startAutoScroll(el, btn) {
         el.scrollTop += 1;
     }, 30);
 
-    // Stop when reaching the end
     const checkEnd = () => {
         if (el.scrollTop + el.clientHeight >= el.scrollHeight - 10) {
             stopMovieMode();
@@ -439,6 +478,7 @@ function startAutoScroll(el, btn) {
 
 function stopMovieMode() {
     if (movieModeInterval) {
+        clearTimeout(movieModeInterval);
         clearInterval(movieModeInterval);
         movieModeInterval = null;
     }
