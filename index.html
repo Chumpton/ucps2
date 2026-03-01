@@ -337,221 +337,252 @@
                     </div>
                 </div>
 
-                <!-- Consciousness Dimension Viewer Widget -->
+                <!-- Consciousness Dimension Viewer - Teaser -->
                 <div id="cosmic-viewer"
-                    style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
-                    <div style="width: 100%; height: 500px; position: relative; border-radius: 12px; overflow: hidden;">
-                        <div id="cnscns-widget" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
+                    style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
+                    <div id="dimension-teaser"
+                        style="cursor: pointer; text-align: center; background: linear-gradient(135deg, rgba(5,5,15,0.9), rgba(15,5,25,0.95)); border: 1px solid rgba(177,75,244,0.25); border-radius: 16px; padding: 2.5rem 2rem; transition: all 0.4s ease; position: relative; overflow: hidden;"
+                        onmouseover="this.style.borderColor='rgba(177,75,244,0.6)'; this.style.boxShadow='0 0 40px rgba(177,75,244,0.15)';"
+                        onmouseout="this.style.borderColor='rgba(177,75,244,0.25)'; this.style.boxShadow='none';"
+                        onclick="openDimensionOverlay()">
+                        <div style="font-size: 2rem; margin-bottom: 0.8rem; opacity: 0.7;">∞</div>
+                        <h3
+                            style="font-family: var(--font-heading); font-size: 1.4rem; color: #fff; margin-bottom: 0.5rem; letter-spacing: 0.1em;">
+                            Your Soul Has Dimensions...</h3>
+                        <p
+                            style="color: rgba(255,255,255,0.5); font-size: 0.85rem; max-width: 400px; margin: 0 auto 1.5rem;">
+                            Journey from Singularity through Consciousness to Source. An interactive scroll experience
+                            mapping the layers of existence.</p>
+                        <div style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.8rem; border: 1px solid rgba(0,212,255,0.4); border-radius: 30px; color: var(--accent-cyan); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.3s;"
+                            onmouseover="this.style.background='rgba(0,212,255,0.1)'; this.style.borderColor='rgba(0,212,255,0.7)';"
+                            onmouseout="this.style.background='transparent'; this.style.borderColor='rgba(0,212,255,0.4)';">
+                            <span>Enter The Experience</span>
+                            <span style="font-size: 1.1rem;">→</span>
                         </div>
                     </div>
                 </div>
 
-                <div id="true-date-ticker" class="true-date-ticker" aria-live="polite">
-                    <div class="ticker-track">
-                        <span id="true-date-ticker-text">Initializing UCPS True Date ticker...</span>
+                <!-- Fullscreen Dimension Widget Overlay -->
+                <div id="dimension-overlay"
+                    style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; background: #000; display: none; opacity: 0; transition: opacity 0.5s ease;">
+                    <div style="position: fixed; top: 1rem; right: 1rem; z-index: 10001; display: flex; gap: 0.8rem;">
+                        <button id="btn-movie-mode" onclick="startMovieMode()"
+                            style="padding: 0.6rem 1.2rem; background: rgba(0,0,0,0.7); border: 1px solid rgba(255,215,0,0.4); color: rgba(255,215,0,0.9); border-radius: 8px; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; backdrop-filter: blur(10px); transition: all 0.3s;">🎬
+                            Movie Mode</button>
+                        <button onclick="closeDimensionOverlay()"
+                            style="padding: 0.6rem 1.2rem; background: rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.8); border-radius: 8px; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; backdrop-filter: blur(10px); transition: all 0.3s;">✕
+                            Close</button>
+                    </div>
+                    <div id="cnscns-widget" style="width: 100%; height: 100%;"></div>
+                </div>
+            </div>
+
+            <div id="true-date-ticker" class="true-date-ticker" aria-live="polite">
+                <div class="ticker-track">
+                    <span id="true-date-ticker-text">Initializing UCPS True Date ticker...</span>
+                </div>
+            </div>
+
+            <!-- Natal Chart Generator -->
+            <div id="soul-coordinates-section" class="panel natal-chart-container"
+                style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; text-align: center;">
+                <h3>Get Your Soul's Coordinates</h3>
+                <p style="font-size: 0.85rem; margin-bottom: 1rem; color: rgba(255,255,255,0.6);">Generate your
+                    Minimalist Astro Chart, discover your Human Design Type, and calculate your true Position of
+                    Soul.
+                </p>
+
+                <div class="natal-form-container"
+                    style="max-width: 450px; margin: 0 auto 3rem auto; text-align: left; font-family: 'Quicksand', sans-serif;">
+
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="natal-name"
+                            style="display: block; margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">My name
+                            is</label>
+                        <input type="text" id="natal-name" class="glass-input dark-theme-input"
+                            style="width: 100%; padding: 0.8rem 1.2rem; font-size: 1rem; border-radius: 25px; font-family: inherit;" />
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">I was
+                            born on <span style="color: rgba(255,255,255,0.5);">*</span></label>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <select id="natal-month" class="glass-input dark-theme-input text-center"
+                                style="width: 80px; padding: 0.8rem; font-size: 1rem; cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
+                                <option value="" disabled selected>MM</option>
+                            </select>
+                            <span style="color: rgba(255,255,255,0.5); font-size: 1.2rem;">/</span>
+                            <select id="natal-day" class="glass-input dark-theme-input text-center"
+                                style="width: 80px; padding: 0.8rem; font-size: 1rem; cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
+                                <option value="" disabled selected>DD</option>
+                            </select>
+                            <span style="color: rgba(255,255,255,0.5); font-size: 1.2rem;">/</span>
+                            <select id="natal-year" class="glass-input dark-theme-input text-center"
+                                style="width: 100px; padding: 0.8rem; font-size: 1rem; cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
+                                <option value="" disabled selected>YYYY</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">At
+                            birth time <span style="color: rgba(255,255,255,0.5);">*</span></label>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+                            <select id="natal-hour" class="glass-input dark-theme-input text-center"
+                                style="width: 80px; padding: 0.8rem; font-size: 1rem; cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
+                                <option value="" disabled selected>HH</option>
+                            </select>
+                            <span style="color: rgba(255,255,255,0.5); font-size: 1.2rem;">:</span>
+                            <select id="natal-minute" class="glass-input dark-theme-input text-center"
+                                style="width: 80px; padding: 0.8rem; font-size: 1rem; cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
+                                <option value="" disabled selected>MM</option>
+                            </select>
+                            <select id="natal-ampm" class="glass-input dark-theme-input"
+                                style="padding: 0.8rem 1.2rem; font-size: 1rem; font-weight: bold; background-color: rgba(10,10,20,0.8); cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
+                                <option value="AM">AM</option>
+                                <option value="PM">PM</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="natal-unknown-time"
+                                style="width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent-magenta);" />
+                            <label for="natal-unknown-time"
+                                style="font-size: 0.9rem; color: rgba(255,255,255,0.8); cursor: pointer;">I don't
+                                know my birth time</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.5rem; position: relative; z-index: 100;">
+                        <label for="natal-location"
+                            style="display: block; margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">In <span
+                                style="color: rgba(255,255,255,0.5);">*</span></label>
+                        <div style="position: relative;">
+                            <input type="text" id="natal-location" class="glass-input dark-theme-input"
+                                placeholder="SEARCH FOR A CITY..." autocomplete="off"
+                                style="width: 100%; padding: 0.8rem 1.2rem; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: bold; color: rgba(255,255,255,0.8); border-radius: 25px; font-family: inherit;" />
+
+                            <div id="city-autocomplete-list" class="autocomplete-items"
+                                style="display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 99; background: rgba(10,10,30,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(177, 75, 244, 0.4); border-radius: 20px; margin-top: 8px; max-height: 250px; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                            </div>
+
+                            <div class="gps-readout"
+                                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); display: flex; gap: 0.5rem; background: rgba(0,0,0,0.5); padding: 0.3rem 0.6rem; border-radius: 20px; pointer-events: none;">
+                                <span id="gps-lat"
+                                    style="font-family: inherit; font-size: 0.75rem; color: var(--accent-gold);">Lat:
+                                    --</span>
+                                <span id="gps-lng"
+                                    style="font-family: inherit; font-size: 0.75rem; color: var(--accent-gold);">Lng:
+                                    --</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 2rem; position: relative; z-index: 90;">
+                        <label for="natal-email"
+                            style="display: block; margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">My email
+                            is <span style="color: rgba(255,255,255,0.5);">*</span></label>
+                        <input type="email" id="natal-email" class="glass-input dark-theme-input"
+                            placeholder="EMAIL ADDRESS"
+                            style="width: 100%; padding: 0.8rem 1.2rem; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: bold; color: rgba(255,255,255,0.8); margin-bottom: 0.8rem; border-radius: 25px; font-family: inherit;" />
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="natal-subscribe" checked
+                                style="width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent-magenta);" />
+                            <label for="natal-subscribe"
+                                style="font-size: 0.9rem; color: rgba(255,255,255,0.8); cursor: pointer;">Send me
+                                astrology updates</label>
+                        </div>
+                    </div>
+
+                    <button class="btn-glow" id="btn-generate-natal"
+                        style="padding: 0.8rem 2rem; font-size: 1rem; font-family: inherit; letter-spacing: 0.05em; background: transparent; border: 2px solid rgba(255,255,255,0.2); border-radius: 30px; color: #fff; width: auto; transition: all 0.3s ease;">
+                        Get My Coordinates <span style="color: var(--accent-blue); margin-left: 0.3rem;">></span>
+                    </button>
+
+                    <div id="aspect-filters"
+                        style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; opacity: 0; pointer-events: none; transition: opacity 0.5s;">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="harmonious">Harmonious</button>
+                        <button class="filter-btn" data-filter="challenging">Challenging</button>
                     </div>
                 </div>
 
-                <!-- Natal Chart Generator -->
-                <div id="soul-coordinates-section" class="panel natal-chart-container"
-                    style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; text-align: center;">
-                    <h3>Get Your Soul's Coordinates</h3>
-                    <p style="font-size: 0.85rem; margin-bottom: 1rem; color: rgba(255,255,255,0.6);">Generate your
-                        Minimalist Astro Chart, discover your Human Design Type, and calculate your true Position of
-                        Soul.
-                    </p>
+                <div id="natal-canvas-wrapper"
+                    style="position: relative; width: 100%; max-width: 400px; margin: 0 auto; aspect-ratio: 1; border-radius: 50%; border: 1px solid rgba(177, 75, 244, 0.3); background: rgba(0,0,0,0.4); box-shadow: inset 0 0 30px rgba(0,212,255,0.1);">
+                    <canvas id="natal-canvas" width="400" height="400"
+                        style="width: 100%; height: 100%; border-radius: 50%;"></canvas>
 
-                    <div class="natal-form-container"
-                        style="max-width: 450px; margin: 0 auto 3rem auto; text-align: left; font-family: 'Quicksand', sans-serif;">
-
-                        <div class="form-group" style="margin-bottom: 1.5rem;">
-                            <label for="natal-name"
-                                style="display: block; margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">My name
-                                is</label>
-                            <input type="text" id="natal-name" class="glass-input dark-theme-input"
-                                style="width: 100%; padding: 0.8rem 1.2rem; font-size: 1rem; border-radius: 25px; font-family: inherit;" />
-                        </div>
-
-                        <div class="form-group" style="margin-bottom: 1.5rem;">
-                            <label style="display: block; margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">I was
-                                born on <span style="color: rgba(255,255,255,0.5);">*</span></label>
-                            <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                <select id="natal-month" class="glass-input dark-theme-input text-center"
-                                    style="width: 80px; padding: 0.8rem; font-size: 1rem; cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
-                                    <option value="" disabled selected>MM</option>
-                                </select>
-                                <span style="color: rgba(255,255,255,0.5); font-size: 1.2rem;">/</span>
-                                <select id="natal-day" class="glass-input dark-theme-input text-center"
-                                    style="width: 80px; padding: 0.8rem; font-size: 1rem; cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
-                                    <option value="" disabled selected>DD</option>
-                                </select>
-                                <span style="color: rgba(255,255,255,0.5); font-size: 1.2rem;">/</span>
-                                <select id="natal-year" class="glass-input dark-theme-input text-center"
-                                    style="width: 100px; padding: 0.8rem; font-size: 1rem; cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
-                                    <option value="" disabled selected>YYYY</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group" style="margin-bottom: 1.5rem;">
-                            <label style="display: block; margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">At
-                                birth time <span style="color: rgba(255,255,255,0.5);">*</span></label>
-                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
-                                <select id="natal-hour" class="glass-input dark-theme-input text-center"
-                                    style="width: 80px; padding: 0.8rem; font-size: 1rem; cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
-                                    <option value="" disabled selected>HH</option>
-                                </select>
-                                <span style="color: rgba(255,255,255,0.5); font-size: 1.2rem;">:</span>
-                                <select id="natal-minute" class="glass-input dark-theme-input text-center"
-                                    style="width: 80px; padding: 0.8rem; font-size: 1rem; cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
-                                    <option value="" disabled selected>MM</option>
-                                </select>
-                                <select id="natal-ampm" class="glass-input dark-theme-input"
-                                    style="padding: 0.8rem 1.2rem; font-size: 1rem; font-weight: bold; background-color: rgba(10,10,20,0.8); cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
-                                    <option value="AM">AM</option>
-                                    <option value="PM">PM</option>
-                                </select>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                <input type="checkbox" id="natal-unknown-time"
-                                    style="width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent-magenta);" />
-                                <label for="natal-unknown-time"
-                                    style="font-size: 0.9rem; color: rgba(255,255,255,0.8); cursor: pointer;">I don't
-                                    know my birth time</label>
-                            </div>
-                        </div>
-
-                        <div class="form-group" style="margin-bottom: 1.5rem; position: relative; z-index: 100;">
-                            <label for="natal-location"
-                                style="display: block; margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">In <span
-                                    style="color: rgba(255,255,255,0.5);">*</span></label>
-                            <div style="position: relative;">
-                                <input type="text" id="natal-location" class="glass-input dark-theme-input"
-                                    placeholder="SEARCH FOR A CITY..." autocomplete="off"
-                                    style="width: 100%; padding: 0.8rem 1.2rem; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: bold; color: rgba(255,255,255,0.8); border-radius: 25px; font-family: inherit;" />
-
-                                <div id="city-autocomplete-list" class="autocomplete-items"
-                                    style="display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 99; background: rgba(10,10,30,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(177, 75, 244, 0.4); border-radius: 20px; margin-top: 8px; max-height: 250px; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-                                </div>
-
-                                <div class="gps-readout"
-                                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); display: flex; gap: 0.5rem; background: rgba(0,0,0,0.5); padding: 0.3rem 0.6rem; border-radius: 20px; pointer-events: none;">
-                                    <span id="gps-lat"
-                                        style="font-family: inherit; font-size: 0.75rem; color: var(--accent-gold);">Lat:
-                                        --</span>
-                                    <span id="gps-lng"
-                                        style="font-family: inherit; font-size: 0.75rem; color: var(--accent-gold);">Lng:
-                                        --</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group" style="margin-bottom: 2rem; position: relative; z-index: 90;">
-                            <label for="natal-email"
-                                style="display: block; margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">My email
-                                is <span style="color: rgba(255,255,255,0.5);">*</span></label>
-                            <input type="email" id="natal-email" class="glass-input dark-theme-input"
-                                placeholder="EMAIL ADDRESS"
-                                style="width: 100%; padding: 0.8rem 1.2rem; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: bold; color: rgba(255,255,255,0.8); margin-bottom: 0.8rem; border-radius: 25px; font-family: inherit;" />
-                            <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                <input type="checkbox" id="natal-subscribe" checked
-                                    style="width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent-magenta);" />
-                                <label for="natal-subscribe"
-                                    style="font-size: 0.9rem; color: rgba(255,255,255,0.8); cursor: pointer;">Send me
-                                    astrology updates</label>
-                            </div>
-                        </div>
-
-                        <button class="btn-glow" id="btn-generate-natal"
-                            style="padding: 0.8rem 2rem; font-size: 1rem; font-family: inherit; letter-spacing: 0.05em; background: transparent; border: 2px solid rgba(255,255,255,0.2); border-radius: 30px; color: #fff; width: auto; transition: all 0.3s ease;">
-                            Get My Coordinates <span style="color: var(--accent-blue); margin-left: 0.3rem;">></span>
-                        </button>
-
-                        <div id="aspect-filters"
-                            style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; opacity: 0; pointer-events: none; transition: opacity 0.5s;">
-                            <button class="filter-btn active" data-filter="all">All</button>
-                            <button class="filter-btn" data-filter="harmonious">Harmonious</button>
-                            <button class="filter-btn" data-filter="challenging">Challenging</button>
-                        </div>
+                    <!-- Time display overlay -->
+                    <div id="natal-time-display"
+                        style="position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); font-family: 'Space Grotesk', monospace; color: var(--accent-cyan); font-size: 1.1rem; font-weight: bold; text-shadow: 0 0 10px rgba(0,212,255,0.5); opacity: 0; transition: opacity 0.5s;">
+                        --:-- --
                     </div>
 
-                    <div id="natal-canvas-wrapper"
-                        style="position: relative; width: 100%; max-width: 400px; margin: 0 auto; aspect-ratio: 1; border-radius: 50%; border: 1px solid rgba(177, 75, 244, 0.3); background: rgba(0,0,0,0.4); box-shadow: inset 0 0 30px rgba(0,212,255,0.1);">
-                        <canvas id="natal-canvas" width="400" height="400"
-                            style="width: 100%; height: 100%; border-radius: 50%;"></canvas>
+                    <div id="natal-loading"
+                        style="position: absolute; top:50%; left:50%; transform: translate(-50%, -50%); color: var(--accent-gold); font-size: 0.8rem; display: none;">
+                        Calculating Transits...</div>
+                </div>
 
-                        <!-- Time display overlay -->
-                        <div id="natal-time-display"
-                            style="position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); font-family: 'Space Grotesk', monospace; color: var(--accent-cyan); font-size: 1.1rem; font-weight: bold; text-shadow: 0 0 10px rgba(0,212,255,0.5); opacity: 0; transition: opacity 0.5s;">
-                            --:-- --
-                        </div>
+                <!-- Soul Results Context (Human Design + Position) -->
+                <div id="soul-results-card" class="panel"
+                    style="display: none; margin-top: 3rem; background: linear-gradient(135deg, rgba(10,10,20,0.8), rgba(20,10,30,0.9)); border-radius: 25px; border-color: rgba(177, 75, 244, 0.4); text-align: left; font-family: 'Quicksand', sans-serif;">
+                    <h4 style="color: var(--accent-gold); margin-bottom: 0.5rem; font-size: 1.2rem;">Cosmic Profile
+                    </h4>
+                    <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8); margin-bottom: 1rem;">Based on your
+                        coordinates, here are your core signatures:</p>
 
-                        <div id="natal-loading"
-                            style="position: absolute; top:50%; left:50%; transform: translate(-50%, -50%); color: var(--accent-gold); font-size: 0.8rem; display: none;">
-                            Calculating Transits...</div>
-                    </div>
-
-                    <!-- Soul Results Context (Human Design + Position) -->
-                    <div id="soul-results-card" class="panel"
-                        style="display: none; margin-top: 3rem; background: linear-gradient(135deg, rgba(10,10,20,0.8), rgba(20,10,30,0.9)); border-radius: 25px; border-color: rgba(177, 75, 244, 0.4); text-align: left; font-family: 'Quicksand', sans-serif;">
-                        <h4 style="color: var(--accent-gold); margin-bottom: 0.5rem; font-size: 1.2rem;">Cosmic Profile
-                        </h4>
-                        <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8); margin-bottom: 1rem;">Based on your
-                            coordinates, here are your core signatures:</p>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div
+                            style="background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: center; position: relative; overflow: hidden;">
                             <div
-                                style="background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: center; position: relative; overflow: hidden;">
-                                <div
-                                    style="font-size: 0.75rem; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 0.3rem;">
-                                    Human Design Type</div>
+                                style="font-size: 0.75rem; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 0.3rem;">
+                                Human Design Type</div>
 
-                                <div style="position: relative; width: 100px; height: 100px; margin: 0.5rem auto;">
-                                    <img src="assets/human_design_template.png"
-                                        style="width: 100%; height: 100%; object-fit: contain; opacity: 0.8;"
-                                        alt="Human Design Bodygraph" />
-                                </div>
-
-                                <div id="soul-hd-type" style="font-size: 1.1rem; font-weight: bold; color: #fff;">--
-                                </div>
-                                <div id="soul-hd-profile"
-                                    style="font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 0.2rem;">--
-                                </div>
+                            <div style="position: relative; width: 100px; height: 100px; margin: 0.5rem auto;">
+                                <img src="assets/human_design_template.png"
+                                    style="width: 100%; height: 100%; object-fit: contain; opacity: 0.8;"
+                                    alt="Human Design Bodygraph" />
                             </div>
 
-                            <div
-                                style="background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
-                                <div
-                                    style="font-size: 0.75rem; text-transform: uppercase; color: var(--accent-magenta); margin-bottom: 0.3rem;">
-                                    Primary Astro Sign</div>
-                                <div id="soul-astro-sign"
-                                    style="font-size: 1.5rem; font-weight: bold; color: #fff; margin-top: 1rem;">--
-                                </div>
-                                <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 0.2rem;">Sun
-                                    position</div>
+                            <div id="soul-hd-type" style="font-size: 1.1rem; font-weight: bold; color: #fff;">--
+                            </div>
+                            <div id="soul-hd-profile"
+                                style="font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 0.2rem;">--
                             </div>
                         </div>
 
                         <div
-                            style="margin-top: 1rem; background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                            style="background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
                             <div
-                                style="font-size: 0.75rem; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 0.3rem;">
-                                Position of Soul (Z-Axis Node)</div>
-                            <div id="soul-z-node"
-                                style="font-size: 1.1rem; font-weight: bold; color: #fff; font-family: 'Space Grotesk', monospace;">
-                                --</div>
-                            <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 0.4rem;">This node
-                                maps roughly to your developmental phase and energetic expression. It has been synced to
-                                the main widget above.</div>
+                                style="font-size: 0.75rem; text-transform: uppercase; color: var(--accent-magenta); margin-bottom: 0.3rem;">
+                                Primary Astro Sign</div>
+                            <div id="soul-astro-sign"
+                                style="font-size: 1.5rem; font-weight: bold; color: #fff; margin-top: 1rem;">--
+                            </div>
+                            <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 0.2rem;">Sun
+                                position</div>
                         </div>
+                    </div>
+
+                    <div
+                        style="margin-top: 1rem; background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                        <div
+                            style="font-size: 0.75rem; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 0.3rem;">
+                            Position of Soul (Z-Axis Node)</div>
+                        <div id="soul-z-node"
+                            style="font-size: 1.1rem; font-weight: bold; color: #fff; font-family: 'Space Grotesk', monospace;">
+                            --</div>
+                        <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 0.4rem;">This node
+                            maps roughly to your developmental phase and energetic expression. It has been synced to
+                            the main widget above.</div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="scroll-arrow" id="scroll-arrow">
-                <span>▼</span>
-                <span class="scroll-label">Scroll to explore</span>
-            </div>
+        <div class="scroll-arrow" id="scroll-arrow">
+            <span>▼</span>
+            <span class="scroll-label">Scroll to explore</span>
+        </div>
         </div>
     </header>
 

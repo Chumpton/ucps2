@@ -351,3 +351,90 @@ if (starWarsBtn && starWarsOverlay && starWarsClose && starWarsCrawlContent) {
         }
     });
 })();
+
+// Dimension Widget Overlay
+let dimensionWidgetInitialized = false;
+let movieModeInterval = null;
+
+function openDimensionOverlay() {
+    const overlay = document.getElementById('dimension-overlay');
+    if (!overlay) return;
+    overlay.style.display = 'block';
+    requestAnimationFrame(() => {
+        overlay.style.opacity = '1';
+    });
+    document.body.style.overflow = 'hidden';
+
+    // Lazy-init: The widget script auto-initializes when it finds #cnscns-widget
+    // Since the overlay is now display:block, the widget container is visible
+    if (!dimensionWidgetInitialized) {
+        dimensionWidgetInitialized = true;
+        // If widget didn't auto-init (because container was hidden), re-trigger
+        if (window.CnscnsWidget && typeof window.CnscnsWidget.init === 'function') {
+            window.CnscnsWidget.init();
+        }
+    }
+}
+
+function closeDimensionOverlay() {
+    const overlay = document.getElementById('dimension-overlay');
+    if (!overlay) return;
+    stopMovieMode();
+    overlay.style.opacity = '0';
+    setTimeout(() => {
+        overlay.style.display = 'none';
+    }, 500);
+    document.body.style.overflow = '';
+}
+
+function startMovieMode() {
+    const btn = document.getElementById('btn-movie-mode');
+    const scrollDriver = document.querySelector('#dimension-overlay .scroll-driver');
+
+    if (movieModeInterval) {
+        stopMovieMode();
+        return;
+    }
+
+    if (!scrollDriver) {
+        // Widget might use a different scroll container, try to find it
+        const possibleDriver = document.querySelector('#cnscns-widget .scroll-driver') ||
+            document.querySelector('#dimension-overlay [style*="overflow"]');
+        if (!possibleDriver) return;
+        startAutoScroll(possibleDriver, btn);
+    } else {
+        startAutoScroll(scrollDriver, btn);
+    }
+}
+
+function startAutoScroll(el, btn) {
+    if (btn) {
+        btn.textContent = '⏸ Stop Movie';
+        btn.style.borderColor = 'rgba(255,100,100,0.6)';
+        btn.style.color = 'rgba(255,100,100,0.9)';
+    }
+    movieModeInterval = setInterval(() => {
+        el.scrollTop += 1; // Slow, readable scroll speed
+    }, 30);
+
+    // Stop when reaching the end
+    el.addEventListener('scroll', function checkEnd() {
+        if (el.scrollTop + el.clientHeight >= el.scrollHeight - 10) {
+            stopMovieMode();
+            el.removeEventListener('scroll', checkEnd);
+        }
+    });
+}
+
+function stopMovieMode() {
+    if (movieModeInterval) {
+        clearInterval(movieModeInterval);
+        movieModeInterval = null;
+    }
+    const btn = document.getElementById('btn-movie-mode');
+    if (btn) {
+        btn.textContent = '🎬 Movie Mode';
+        btn.style.borderColor = 'rgba(255,215,0,0.4)';
+        btn.style.color = 'rgba(255,215,0,0.9)';
+    }
+}
