@@ -327,3 +327,27 @@ if (starWarsBtn && starWarsOverlay && starWarsClose && starWarsCrawlContent) {
         document.body.style.overflow = ''; // Restore scrolling
     });
 }
+
+// Nav hide on scroll down, show on scroll up
+(function () {
+    const nav = document.querySelector('.glass-nav');
+    if (!nav) return;
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const currentScrollY = window.scrollY;
+                if (currentScrollY > lastScrollY && currentScrollY > 80) {
+                    nav.classList.add('nav-hidden');
+                } else {
+                    nav.classList.remove('nav-hidden');
+                }
+                lastScrollY = currentScrollY;
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+})();

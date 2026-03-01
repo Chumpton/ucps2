@@ -107,6 +107,11 @@ a {
     backdrop-filter: blur(10px);
     background: rgba(5, 5, 10, 0.35);
     border-bottom: 1px solid var(--glass-border);
+    transition: transform 0.3s ease;
+}
+
+.glass-nav.nav-hidden {
+    transform: translateY(-100%);
 }
 
 .logo {

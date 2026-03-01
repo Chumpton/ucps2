@@ -17,31 +17,31 @@
 }
 
 .coord-text {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: #fff;
     text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
-    padding: 0 0.2rem;
+    padding: 0 0.3rem;
     font-variant-numeric: tabular-nums;
     font-family: 'Space Mono', monospace;
+    letter-spacing: 0.02em;
 }
 
 .coord-connector {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 5px;
-    height: 30px;
-    /* Fixed height for alignment */
-    width: 20px;
+    margin-top: 3px;
+    height: 20px;
+    width: 14px;
 }
 
 .coord-arrow-up {
     width: 0;
     height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 8px solid var(--accent-cyan);
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-bottom: 5px solid rgba(0, 212, 255, 0.5);
 }
 
 .coord-stem {
@@ -62,17 +62,15 @@
 }
 
 .coord-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    /* Bold */
+    font-size: 0.5rem;
+    font-weight: 600;
     font-family: var(--font-heading);
-    /* Rounded Quicksand */
-    color: var(--accent-cyan);
+    color: rgba(255, 215, 0, 0.7);
     text-transform: uppercase;
-    margin-top: 6px;
-    letter-spacing: 0.05em;
-    opacity: 1;
-    text-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
+    margin-top: 5px;
+    letter-spacing: 0.1em;
+    opacity: 0.8;
+    text-shadow: none;
 }
 
 /* Adjust wrapper to handle the baseline if we want it strictly connected */
