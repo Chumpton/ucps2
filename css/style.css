@@ -454,7 +454,7 @@ a {
 
 .date-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 1rem;
     margin: 1.5rem 0;
 }
@@ -804,6 +804,7 @@ textarea.glass-input {
     padding: 1px;
     background: linear-gradient(120deg, rgba(112, 231, 255, 0.75), rgba(224, 150, 255, 0.7), rgba(118, 155, 255, 0.7));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
 }
@@ -1340,7 +1341,7 @@ textarea.glass-input {
 
 .founder-card {
     display: grid;
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1rem;
 }
 
@@ -1990,7 +1991,7 @@ textarea.glass-input {
 
 .xyz-infographic-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 1.2rem;
     margin-bottom: 2rem;
 }
@@ -2502,4 +2503,42 @@ textarea.glass-input {
 /* Compact pricing features spacing */
 .pricing-features li {
     margin-bottom: 0.4rem;
+}
+
+/* Base mobile overflow mitigations */
+@media (max-width: 768px) {
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-sketch-layout {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "avatar"
+            "name"
+            "life"
+            "sign"
+            "chart";
+        justify-items: center;
+        text-align: center;
+    }
+
+    .sketch-avatar-wrap,
+    .sketch-chart-wrap {
+        justify-self: center;
+    }
+
+    .panel {
+        padding: 1.25rem 1rem;
+    }
+
+    .aura-img {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .pricing-card {
+        padding: 1.5rem 1rem;
+    }
 }
