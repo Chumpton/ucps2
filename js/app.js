@@ -355,25 +355,18 @@ if (starWarsBtn && starWarsOverlay && starWarsClose && starWarsCrawlContent) {
 // Dimension Widget Overlay
 let dimensionWidgetInitialized = false;
 let movieModeInterval = null;
+let movieModeScrollEl = null;
 
 function openDimensionOverlay() {
     const overlay = document.getElementById('dimension-overlay');
     if (!overlay) return;
     overlay.style.display = 'block';
+    // Force layout before triggering opacity transition
+    void overlay.offsetHeight;
     requestAnimationFrame(() => {
         overlay.style.opacity = '1';
     });
     document.body.style.overflow = 'hidden';
-
-    // Lazy-init: The widget script auto-initializes when it finds #cnscns-widget
-    // Since the overlay is now display:block, the widget container is visible
-    if (!dimensionWidgetInitialized) {
-        dimensionWidgetInitialized = true;
-        // If widget didn't auto-init (because container was hidden), re-trigger
-        if (window.CnscnsWidget && typeof window.CnscnsWidget.init === 'function') {
-            window.CnscnsWidget.init();
-        }
-    }
 }
 
 function closeDimensionOverlay() {
@@ -387,43 +380,61 @@ function closeDimensionOverlay() {
     document.body.style.overflow = '';
 }
 
-function startMovieMode() {
-    const btn = document.getElementById('btn-movie-mode');
-    const scrollDriver = document.querySelector('#dimension-overlay .scroll-driver');
+function findScrollDriver() {
+    // The widget creates a .scroll-driver element inside #cnscns-widget
+    return document.querySelector('#cnscns-widget .scroll-driver') ||
+        document.querySelector('#dimension-overlay .scroll-driver');
+}
 
+function startMovieMode() {
     if (movieModeInterval) {
         stopMovieMode();
         return;
     }
 
-    if (!scrollDriver) {
-        // Widget might use a different scroll container, try to find it
-        const possibleDriver = document.querySelector('#cnscns-widget .scroll-driver') ||
-            document.querySelector('#dimension-overlay [style*="overflow"]');
-        if (!possibleDriver) return;
-        startAutoScroll(possibleDriver, btn);
-    } else {
-        startAutoScroll(scrollDriver, btn);
+    const btn = document.getElementById('btn-movie-mode');
+    const scrollEl = findScrollDriver();
+
+    if (!scrollEl) {
+        // Widget may not have initialized yet, retry after a moment
+        if (btn) btn.textContent = '⏳ Loading...';
+        setTimeout(() => {
+            const retryEl = findScrollDriver();
+            if (retryEl) {
+                startAutoScroll(retryEl, btn);
+            } else if (btn) {
+                btn.textContent = '🎬 Movie Mode';
+            }
+        }, 1500);
+        return;
     }
+
+    // Reset scroll to top first
+    scrollEl.scrollTop = 0;
+    setTimeout(() => {
+        startAutoScroll(scrollEl, btn);
+    }, 500);
 }
 
 function startAutoScroll(el, btn) {
+    movieModeScrollEl = el;
     if (btn) {
         btn.textContent = '⏸ Stop Movie';
         btn.style.borderColor = 'rgba(255,100,100,0.6)';
         btn.style.color = 'rgba(255,100,100,0.9)';
     }
     movieModeInterval = setInterval(() => {
-        el.scrollTop += 1; // Slow, readable scroll speed
+        el.scrollTop += 1;
     }, 30);
 
     // Stop when reaching the end
-    el.addEventListener('scroll', function checkEnd() {
+    const checkEnd = () => {
         if (el.scrollTop + el.clientHeight >= el.scrollHeight - 10) {
             stopMovieMode();
             el.removeEventListener('scroll', checkEnd);
         }
-    });
+    };
+    el.addEventListener('scroll', checkEnd);
 }
 
 function stopMovieMode() {
@@ -431,6 +442,7 @@ function stopMovieMode() {
         clearInterval(movieModeInterval);
         movieModeInterval = null;
     }
+    movieModeScrollEl = null;
     const btn = document.getElementById('btn-movie-mode');
     if (btn) {
         btn.textContent = '🎬 Movie Mode';
@@ -438,3 +450,13 @@ function stopMovieMode() {
         btn.style.color = 'rgba(255,215,0,0.9)';
     }
 }
+
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const overlay = document.getElementById('dimension-overlay');
+        if (overlay && overlay.style.display === 'block') {
+            closeDimensionOverlay();
+        }
+    }
+});
