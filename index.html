@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/starwars.css">
     <link rel="stylesheet" href="css/rake.css">
+    <link rel="stylesheet" href="css/cnscns-widget.css">
 
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💫</text></svg>">
@@ -336,31 +337,12 @@
                     </div>
                 </div>
 
-                <!-- 3D Cosmic Viewer Container -->
-                <div id="cosmic-viewer" class="cosmic-viewer-container"
+                <!-- Consciousness Dimension Viewer Widget -->
+                <div id="cosmic-viewer"
                     style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
-                    <div class="zoom-controls"
-                        style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: 1rem;">
-                        <button class="btn-small-glow active" id="btn-zoom-earth"
-                            onclick="if(window.CosmicViewer) window.CosmicViewer.zoomTo('earth')">Earth</button>
-                        <button class="btn-small-glow" id="btn-zoom-solar"
-                            onclick="if(window.CosmicViewer) window.CosmicViewer.zoomTo('solarSystem')">Solar
-                            System</button>
-                        <button class="btn-small-glow" id="btn-zoom-galaxy"
-                            onclick="if(window.CosmicViewer) window.CosmicViewer.zoomTo('galaxy')">Galaxy</button>
-                        <button class="btn-small-glow" id="btn-zoom-universe"
-                            onclick="if(window.CosmicViewer) window.CosmicViewer.zoomTo('universe')">Universe</button>
-                        <button class="btn-small-glow" id="btn-zoom-multiverse"
-                            onclick="if(window.CosmicViewer) window.CosmicViewer.zoomTo('multiverse')">Multiverse</button>
-                        <button class="btn-small-glow" id="btn-zoom-source"
-                            onclick="if(window.CosmicViewer) window.CosmicViewer.zoomTo('source')">Source</button>
-                    </div>
-                    <div id="cosmic-canvas-container"
-                        style="width: 100%; height: 400px; background: rgba(0,0,0,0.5); border-radius: 12px; overflow: hidden; position: relative;">
-                        <!-- Three.js Canvas goes here -->
-                        <div id="cosmic-loading"
-                            style="position: absolute; top:50%; left:50%; transform: translate(-50%, -50%); color: var(--accent-cyan);">
-                            Initializing Cosmic Sensors...</div>
+                    <div style="width: 100%; height: 500px; position: relative; border-radius: 12px; overflow: hidden;">
+                        <div id="cnscns-widget" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
+                        </div>
                     </div>
                 </div>
 
@@ -948,14 +930,13 @@
     </div>
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="js/ucps_logic.js"></script>
     <script src="js/app.js"></script>
     <script src="js/location_data.js"></script>
     <script src="js/ephemeris.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="js/position_widget.js"></script>
-    <script src="js/cosmic_viewer.js"></script>
+    <script src="js/cnscns-widget.js"></script>
     <script src="js/natal_chart.js"></script>
 </body>
 
