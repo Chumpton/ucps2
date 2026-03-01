@@ -98,7 +98,7 @@ if (scrollArrow) {
     scrollArrow.addEventListener('click', function () {
         const firstSection = document.querySelector('.below-fold');
         if (firstSection) {
-            firstSection.scrollIntoView({ behavior: 'smooth' });
+            firstSection.scrollIntoView({ behavior: 'smooth', inline: 'nearest' });
         }
     });
 }
@@ -110,7 +110,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
             target.scrollIntoView({
-                behavior: 'smooth'
+                behavior: 'smooth',
+                inline: 'nearest'
             });
         }
     });
@@ -440,7 +441,7 @@ function runMovieSequence(scrollEl, btn) {
 
         const section = sections[currentIndex];
         // Smooth scroll to this section
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        section.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
 
         // Calculate reading time based on text content
         const text = section.textContent || '';
