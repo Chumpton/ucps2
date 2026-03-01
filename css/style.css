@@ -2417,6 +2417,10 @@ textarea.glass-input {
         justify-content: space-between;
         padding: 4rem 5rem;
     }
+
+    .poster-container {
+        flex-direction: row-reverse;
+    }
 }
 
 .aura-painting-visual {
