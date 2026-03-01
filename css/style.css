@@ -121,6 +121,9 @@ a {
     font-size: 1.35rem;
     letter-spacing: 0.14em;
     text-shadow: 0 0 10px var(--accent-glow);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
 }
 
 .nav-links {
