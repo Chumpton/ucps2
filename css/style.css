@@ -2498,3 +2498,8 @@ textarea.glass-input {
     margin-bottom: 2.5rem;
     line-height: 1.6;
 }
+
+/* Compact pricing features spacing */
+.pricing-features li {
+    margin-bottom: 0.4rem;
+}
