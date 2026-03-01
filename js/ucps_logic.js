@@ -150,10 +150,9 @@ const UCPS = {
 
         // ULC
         let ulc = `ULC${data.x.ulc.index}`;
-        if (this.state.displayMode !== 'A') {
-            let frac = data.x.ulc.epochFraction.toFixed(5).substring(2);
-            ulc += `.${frac}`;
-        }
+        let frac = data.x.ulc.epochFraction.toFixed(5).substring(2);
+        ulc += `.${frac}`;
+
         add(ulc, "Univ. Cycle");
 
         // GO (Galactic Orbit)
@@ -274,8 +273,9 @@ const UCPS = {
         }
 
         const tickerEl = document.getElementById('true-date-ticker-text');
+        const now = new Date();
+
         if (tickerEl) {
-            const now = new Date();
             const centralSample = new Intl.DateTimeFormat('en-US', {
                 timeZone: 'America/Chicago',
                 month: 'short',
@@ -288,6 +288,31 @@ const UCPS = {
                 timeZoneName: 'short'
             }).format(now);
             tickerEl.innerText = `TRUE DATE | ${str} | CENTRAL U.S. ${centralSample} | XYZ: X SPACETIME · Y DIMENSION · Z SOUL STAGE`;
+        }
+
+        const universalEl = document.getElementById('universal-time-display');
+        if (universalEl) {
+            const uTime = new Intl.DateTimeFormat('en-US', {
+                timeZone: 'UTC',
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false,
+                timeZoneName: 'short'
+            }).format(now);
+
+            // Reformat slightly to make it look clean (e.g. "Feb 26, 2026 • 23:42:00 UTC")
+            const parts = uTime.split(', ');
+            if (parts.length >= 2) {
+                const datePart = parts[0] + ', ' + parts[1].split(' ')[0];
+                const timePart = parts[1].split(' ').slice(1).join(' ');
+                universalEl.innerHTML = `<span style="color:var(--accent-gold);">UST (UTC):</span> ${datePart} <span style="margin: 0 0.5rem; opacity: 0.5;">|</span> ${timePart}`;
+            } else {
+                universalEl.innerText = uTime;
+            }
         }
     }
 };

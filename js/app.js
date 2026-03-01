@@ -289,3 +289,41 @@ function updateEarthTranslations() {
 // Initialize
 init();
 updateEarthTranslations();
+
+// --- Star Wars Crawl Logic ---
+const starWarsBtn = document.getElementById('star-wars-btn');
+const starWarsOverlay = document.getElementById('star-wars-overlay');
+const starWarsClose = document.getElementById('star-wars-close');
+const starWarsCrawlContent = document.getElementById('star-wars-crawl-content');
+
+if (starWarsBtn && starWarsOverlay && starWarsClose && starWarsCrawlContent) {
+    starWarsBtn.addEventListener('click', () => {
+        // Build crawl content if empty
+        if (starWarsCrawlContent.innerHTML.includes('<!-- Content injected via JS -->') || starWarsCrawlContent.innerHTML.trim() === '') {
+            const h1 = document.querySelector('.hero h1');
+            const panels = document.querySelectorAll('.hero .panel');
+
+            let crawlHtml = '<div style="text-align: center; margin-bottom: 4rem; font-size: 2rem; color: #4deeea;">It is a period of cosmic discovery.</div>';
+            if (h1) crawlHtml += `<h1 style="text-align: center; margin-bottom: 3rem; color: #ffe81f; text-shadow: none;">${h1.innerText}</h1>`;
+
+            panels.forEach(panel => {
+                crawlHtml += `<div style="margin-bottom: 3rem;">${panel.innerHTML}</div>`;
+            });
+
+            starWarsCrawlContent.innerHTML = crawlHtml;
+        }
+
+        starWarsOverlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
+        // Restart animation (Slower 240s duration for readability - roughly 75% slower)
+        starWarsCrawlContent.style.animation = 'none';
+        starWarsCrawlContent.offsetHeight; /* trigger reflow */
+        starWarsCrawlContent.style.animation = 'scroll-crawl 240s linear forwards';
+    });
+
+    starWarsClose.addEventListener('click', () => {
+        starWarsOverlay.classList.add('hidden');
+        document.body.style.overflow = ''; // Restore scrolling
+    });
+}

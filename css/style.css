@@ -450,16 +450,28 @@ a {
 .date-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.55rem;
+    gap: 1rem;
+    margin: 1.5rem 0;
 }
 
 .date-counter-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.09);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
-    padding: 0.5rem;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    padding: 1rem 0.8rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.date-counter-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
 .central-example-card {
@@ -467,16 +479,19 @@ a {
 }
 
 .date-card-label {
-    font-size: 0.6rem;
-    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
 }
 
 .date-card-value {
-    font-size: 0.86rem;
+    font-size: 1.1rem;
     color: #fff;
-    margin-top: 0.15rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
 }
 
 .val-gold {
@@ -488,8 +503,10 @@ a {
 }
 
 .moon-card {
-    display: grid;
-    gap: 0.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
 }
 
 .moon-wrap {
@@ -1945,4 +1962,282 @@ textarea.glass-input {
 .below-fold.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+
+/* XYZ Infographic Styles */
+.xyz-info-bubble {
+    max-width: 800px;
+    background: linear-gradient(145deg, rgba(12, 14, 25, 0.8), rgba(6, 8, 15, 0.9));
+    border: 1px solid rgba(177, 75, 244, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(177, 75, 244, 0.05);
+    overflow: hidden;
+}
+
+.xyz-intro {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    font-size: 1.05rem;
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+.xyz-infographic-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.xyz-infographic-card {
+    background: rgba(20, 22, 35, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 1.5rem 1.2rem;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.xyz-infographic-card:hover {
+    transform: translateY(-8px);
+}
+
+.x-axis-card {
+    border-top: 3px solid #00d4ff;
+}
+
+.y-axis-card {
+    border-top: 3px solid #b14bf4;
+}
+
+.z-axis-card {
+    border-top: 3px solid #ffd700;
+}
+
+.x-axis-card:hover {
+    box-shadow: 0 10px 25px rgba(0, 212, 255, 0.15);
+    border-color: rgba(0, 212, 255, 0.4);
+}
+
+.y-axis-card:hover {
+    box-shadow: 0 10px 25px rgba(177, 75, 244, 0.15);
+    border-color: rgba(177, 75, 244, 0.4);
+}
+
+.z-axis-card:hover {
+    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.15);
+    border-color: rgba(255, 215, 0, 0.4);
+}
+
+.xyz-icon-wrap {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 1.2rem;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+.x-axis-card .xyz-icon-wrap {
+    border: 1px solid rgba(0, 212, 255, 0.3);
+}
+
+.y-axis-card .xyz-icon-wrap {
+    border: 1px solid rgba(177, 75, 244, 0.3);
+}
+
+.z-axis-card .xyz-icon-wrap {
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.xyz-letter {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.5rem;
+    position: absolute;
+    opacity: 0.3;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.x-axis-card .xyz-letter {
+    color: #00d4ff;
+    text-shadow: 0 0 15px #00d4ff;
+    opacity: 0.8;
+}
+
+.y-axis-card .xyz-letter {
+    color: #b14bf4;
+    text-shadow: 0 0 15px #b14bf4;
+    opacity: 0.8;
+}
+
+.z-axis-card .xyz-letter {
+    color: #ffd700;
+    text-shadow: 0 0 15px #ffd700;
+    opacity: 0.8;
+}
+
+.xyz-emoji {
+    font-size: 1.8rem;
+    position: relative;
+    z-index: 2;
+}
+
+.xyz-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+    color: #fff;
+    letter-spacing: 0.05em;
+}
+
+.xyz-subtitle {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.x-axis-card .xyz-subtitle {
+    color: #00d4ff;
+}
+
+.y-axis-card .xyz-subtitle {
+    color: #b14bf4;
+}
+
+.z-axis-card .xyz-subtitle {
+    color: #ffd700;
+}
+
+.xyz-bullets {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.xyz-bullets li {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.75);
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.xyz-bullets li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.xyz-closing-box {
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 4px solid var(--accent-glow);
+    padding: 1.2rem;
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+    color: var(--text-muted);
+}
+
+.xyz-closing-box strong {
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .xyz-infographic-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Natal Chart UI Styling --- */
+.dark-theme-input {
+    background: rgba(10, 10, 15, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border-radius: 4px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dark-theme-input:focus {
+    border-color: rgba(177, 75, 244, 0.6);
+    box-shadow: 0 0 10px rgba(177, 75, 244, 0.2);
+    outline: none;
+}
+
+.dark-theme-input::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+    font-weight: normal;
+    letter-spacing: normal;
+}
+
+.dark-theme-input.text-center {
+    text-align: center;
+}
+
+/* Validation Pulse Animation */
+@keyframes natal-pulse-valid {
+    0% {
+        box-shadow: 0 0 0 0 rgba(177, 75, 244, 0.5);
+        border-color: rgba(177, 75, 244, 0.8);
+        background: rgba(177, 75, 244, 0.15);
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(177, 75, 244, 0);
+        border-color: rgba(177, 75, 244, 1);
+        background: rgba(177, 75, 244, 0.15);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(177, 75, 244, 0);
+        border-color: rgba(177, 75, 244, 0.8);
+        background: rgba(177, 75, 244, 0.15);
+    }
+}
+
+#btn-generate-natal {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+#btn-generate-natal.valid-pulse {
+    animation: natal-pulse-valid 2s infinite;
+    cursor: pointer;
+    opacity: 1;
+}
+
+/* Aspect Filters */
+.filter-btn {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: 0.3s all;
+}
+
+.filter-btn:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #fff;
+}
+
+.filter-btn.active {
+    background: rgba(177, 75, 244, 0.2);
+    border-color: rgba(177, 75, 244, 0.8);
+    color: #fff;
 }
