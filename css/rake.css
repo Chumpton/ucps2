@@ -27,6 +27,19 @@
     letter-spacing: 0.02em;
 }
 
+.coord-prefix {
+    font-size: 0.7em;
+    color: rgba(255, 215, 0, 0.75);
+    font-weight: 600;
+    text-shadow: none;
+    letter-spacing: 0.05em;
+}
+
+.coord-num {
+    font-size: 1em;
+    color: #fff;
+}
+
 .coord-connector {
     display: flex;
     flex-direction: column;

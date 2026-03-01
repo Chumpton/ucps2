@@ -188,7 +188,21 @@ const UCPS = {
 
                 const textSpan = document.createElement('span');
                 textSpan.className = 'coord-text';
-                textSpan.innerText = seg.text;
+
+                // Split text into letter prefix and number suffix
+                const match = seg.text.match(/^([A-Za-z]+)([\d.].*)$/);
+                if (match) {
+                    const prefix = document.createElement('span');
+                    prefix.className = 'coord-prefix';
+                    prefix.textContent = match[1];
+                    const num = document.createElement('span');
+                    num.className = 'coord-num';
+                    num.textContent = match[2];
+                    textSpan.appendChild(prefix);
+                    textSpan.appendChild(num);
+                } else {
+                    textSpan.innerText = seg.text;
+                }
                 item.appendChild(textSpan);
 
                 const connector = document.createElement('div');
