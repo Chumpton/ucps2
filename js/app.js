@@ -12,10 +12,15 @@ function init() {
 }
 
 function resize() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
+    const newWidth = window.innerWidth;
+    const newHeight = window.innerHeight;
+    if (newWidth !== width || Math.abs(newHeight - height) > 50) {
+        width = newWidth;
+        height = newHeight;
+        canvas.width = width;
+        canvas.height = height;
+        createStars();
+    }
 }
 
 function createStars() {
@@ -145,6 +150,11 @@ function updateEarthTranslations() {
 
     if (valGregorian) valGregorian.innerText = `${dateStr}, ${now.getFullYear()} AD`;
     if (valHolocene) valHolocene.innerText = `${dateStr}, ${now.getFullYear() + 10000} HE`;
+
+    const centralExample = document.getElementById('val-central-example');
+    if (centralExample) {
+        centralExample.innerText = localTime;
+    }
 
     // Moon Phase Logic
     const valMoonText = document.getElementById('val-moon-text');
@@ -340,12 +350,14 @@ if (starWarsBtn && starWarsOverlay && starWarsClose && starWarsCrawlContent) {
         if (!ticking) {
             window.requestAnimationFrame(() => {
                 const currentScrollY = window.scrollY;
-                if (currentScrollY > lastScrollY && currentScrollY > 80) {
-                    nav.classList.add('nav-hidden');
-                } else {
-                    nav.classList.remove('nav-hidden');
+                if (Math.abs(currentScrollY - lastScrollY) > 5) {
+                    if (currentScrollY > lastScrollY && currentScrollY > 80) {
+                        nav.classList.add('nav-hidden');
+                    } else {
+                        nav.classList.remove('nav-hidden');
+                    }
+                    lastScrollY = currentScrollY;
                 }
-                lastScrollY = currentScrollY;
                 ticking = false;
             });
             ticking = true;

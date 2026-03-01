@@ -60,6 +60,7 @@ const UCPS = {
         // Update "Now" time continuously
         setInterval(() => {
             this.updateNowTime();
+            // throttle update display if needed, but 100ms is standard for a clock
             this.updateDisplay();
         }, 100);
     },
@@ -176,60 +177,76 @@ const UCPS = {
         }
 
         if (displayEl) {
-            // Render HTML Segments
-            displayEl.innerHTML = '';
+            // Check if we need to rebuild or just update
+            let wrapper = displayEl.querySelector('.rake-wrapper');
+            if (!wrapper) {
+                displayEl.innerHTML = '';
+                wrapper = document.createElement('div');
+                wrapper.className = 'rake-wrapper';
+                displayEl.appendChild(wrapper);
 
-            const wrapper = document.createElement('div');
-            wrapper.className = 'rake-wrapper';
+                const baseline = document.createElement('div');
+                baseline.className = 'rake-baseline';
+                displayEl.appendChild(baseline);
+            }
 
-            segs.forEach((seg) => {
-                const item = document.createElement('div');
-                item.className = 'coord-item';
+            // Update or create items
+            segs.forEach((seg, idx) => {
+                let item = wrapper.children[idx];
+                if (!item) {
+                    item = document.createElement('div');
+                    item.className = 'coord-item';
+                    wrapper.appendChild(item);
+                }
 
-                const textSpan = document.createElement('span');
-                textSpan.className = 'coord-text';
+                let textSpan = item.querySelector('.coord-text');
+                if (!textSpan) {
+                    textSpan = document.createElement('span');
+                    textSpan.className = 'coord-text';
+                    item.appendChild(textSpan);
 
-                // Split text into letter prefix and number suffix
+                    const connector = document.createElement('div');
+                    connector.className = 'coord-connector';
+                    const arrow = document.createElement('div');
+                    arrow.className = 'coord-arrow-up';
+                    connector.appendChild(arrow);
+                    const stem = document.createElement('div');
+                    stem.className = 'coord-stem';
+                    connector.appendChild(stem);
+                    item.appendChild(connector);
+
+                    const labelSpan = document.createElement('span');
+                    labelSpan.className = 'coord-label';
+                    item.appendChild(labelSpan);
+                }
+
+                // Update contents only if changed
                 const match = seg.text.match(/^([A-Za-z]+)([\d.].*)$/);
                 if (match) {
-                    const prefix = document.createElement('span');
-                    prefix.className = 'coord-prefix';
-                    prefix.textContent = match[1];
-                    const num = document.createElement('span');
-                    num.className = 'coord-num';
-                    num.textContent = match[2];
-                    textSpan.appendChild(prefix);
-                    textSpan.appendChild(num);
+                    let prefix = textSpan.querySelector('.coord-prefix');
+                    if (!prefix) {
+                        prefix = document.createElement('span');
+                        prefix.className = 'coord-prefix';
+                        textSpan.appendChild(prefix);
+                    }
+                    if (prefix.textContent !== match[1]) prefix.textContent = match[1];
+
+                    let num = textSpan.querySelector('.coord-num');
+                    if (!num) {
+                        num = document.createElement('span');
+                        num.className = 'coord-num';
+                        textSpan.appendChild(num);
+                    }
+                    if (num.textContent !== match[2]) num.textContent = match[2];
                 } else {
-                    textSpan.innerText = seg.text;
+                    if (textSpan.textContent !== seg.text) textSpan.textContent = seg.text;
                 }
-                item.appendChild(textSpan);
 
-                const connector = document.createElement('div');
-                connector.className = 'coord-connector';
-
-                const arrow = document.createElement('div');
-                arrow.className = 'coord-arrow-up';
-                connector.appendChild(arrow);
-
-                const stem = document.createElement('div');
-                stem.className = 'coord-stem';
-                connector.appendChild(stem);
-                item.appendChild(connector);
-
-                const labelSpan = document.createElement('span');
-                labelSpan.className = 'coord-label';
-                labelSpan.innerText = seg.label;
-                item.appendChild(labelSpan);
-
-                wrapper.appendChild(item);
+                const labelSpan = item.querySelector('.coord-label');
+                if (labelSpan && labelSpan.textContent !== seg.label) {
+                    labelSpan.textContent = seg.label;
+                }
             });
-
-            displayEl.appendChild(wrapper);
-
-            const baseline = document.createElement('div');
-            baseline.className = 'rake-baseline';
-            displayEl.appendChild(baseline);
         }
 
         const tickerEl = document.getElementById('true-date-ticker-text');

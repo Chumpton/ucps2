@@ -19,9 +19,15 @@
 
 html,
 body {
-    scroll-behavior: smooth;
     overflow-x: hidden;
     width: 100%;
+    position: relative;
+    /* Prevent layout shift from scrollbar appearing/disappearing */
+    scrollbar-gutter: stable;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
