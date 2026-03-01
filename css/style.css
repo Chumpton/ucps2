@@ -2391,3 +2391,101 @@ textarea.glass-input {
         transform: scale(1.02) translateY(-5px);
     }
 }
+
+/* Aura Painting Section */
+.aura-painting-section {
+    padding-top: 4rem;
+    padding-bottom: 5rem;
+}
+
+.aura-painting-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    background: linear-gradient(135deg, rgba(8, 12, 23, 0.8), rgba(12, 10, 20, 0.9));
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+}
+
+@media (min-width: 900px) {
+    .aura-painting-container {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 4rem 5rem;
+    }
+}
+
+.aura-painting-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.aura-img {
+    max-width: 100%;
+    width: 380px;
+    border-radius: 5px;
+    /* Slight rounding to soften the painting's frame */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 60px rgba(177, 75, 244, 0.3);
+    animation: float-aura 6s ease-in-out infinite;
+    transform-origin: center;
+}
+
+@keyframes float-aura {
+    0% {
+        transform: translateY(0px) scale(1);
+    }
+
+    50% {
+        transform: translateY(-15px) scale(1.02);
+    }
+
+    100% {
+        transform: translateY(0px) scale(1);
+    }
+}
+
+.aura-painting-details {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+@media (min-width: 900px) {
+    .aura-painting-details {
+        text-align: left;
+        align-items: flex-start;
+    }
+}
+
+.aura-title {
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    color: #fff;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    font-family: var(--font-heading);
+}
+
+.aura-painting-details .price {
+    font-size: 2.2rem;
+    color: var(--accent-gold);
+    font-weight: bold;
+    font-family: var(--font-heading);
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.aura-description {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
