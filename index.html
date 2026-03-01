@@ -100,6 +100,16 @@
                 </div>
             </div>
 
+            <div style="text-align: center; margin-top: -1.2rem; margin-bottom: 2.5rem;">
+                <a href="#soul-coordinates-section" style="text-decoration: none;">
+                    <button class="btn-small-glow"
+                        style="font-size: 0.85rem; padding: 0.5rem 1.5rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.3s ease;">
+                        Get Your Soul's Coordinates <span
+                            style="display: inline-block; transform: translateY(1px); color: var(--accent-cyan); margin-left: 0.3rem;">↓</span>
+                    </button>
+                </a>
+            </div>
+
             <div class="panel what-is-ucps-bubble">
                 <h3>What is UCPS?</h3>
                 <p>
@@ -284,20 +294,6 @@
             <div id="true-date-display" class="panel compact-date">
                 <div class="panel-header-row">
                     <h2>Current True Date</h2>
-                    <div class="panel-controls">
-                        <select id="true-date-mode" class="glass-input compact-select">
-                            <option value="now">Mode: Now</option>
-                            <option value="custom">Mode: Custom Input</option>
-                            <option value="arrival">Mode: Arrival Point</option>
-                            <option value="origin">Mode: Origin Point</option>
-                        </select>
-                        <div class="display-mode-toggles">
-                            <button class="btn-small-glow active" id="mode-btn-a"
-                                onclick="UCPS.setDisplayMode('A')">A</button>
-                            <button class="btn-small-glow" id="mode-btn-b" onclick="UCPS.setDisplayMode('B')">B</button>
-                            <button class="btn-small-glow" id="mode-btn-c" onclick="UCPS.setDisplayMode('C')">C</button>
-                        </div>
-                    </div>
                 </div>
 
                 <p class="widget-xyz-description">
@@ -375,7 +371,7 @@
                 </div>
 
                 <!-- Natal Chart Generator -->
-                <div class="panel natal-chart-container"
+                <div id="soul-coordinates-section" class="panel natal-chart-container"
                     style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; text-align: center;">
                     <h3>Get Your Soul's Coordinates</h3>
                     <p style="font-size: 0.85rem; margin-bottom: 1rem; color: rgba(255,255,255,0.6);">Generate your

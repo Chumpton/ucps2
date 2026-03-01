@@ -6,9 +6,6 @@
 const UCPS = {
     // SINGLE STATE OBJECT
     state: {
-        trueDateMode: "now", // 'now' | 'custom' | 'arrival' | 'origin'
-        displayMode: "A",    // 'A' (Minimal) | 'B' (Expanded) | 'C' (Scientific)
-
         // Data structure for the "Current" calculation
         current: {
             x: {
@@ -30,19 +27,6 @@ const UCPS = {
                 realm: "Physical",  // Realm of Consciousness
                 phase: "Exploration" // Existential Phase
             }
-        },
-
-        // Placeholder for Custom Input Data
-        custom: {
-            x: {
-                ulc: { index: 0, epochFraction: 0.111 },
-                go: { val: "MilkyWay", lifecycle: 0.9 },
-                gr: { val: "1" },
-                sto: { val: "Sol" },
-                po: { val: "Terra" }
-            },
-            y: { branch: "1", dim: "4.0" },
-            z: { sj: "5", realm: "Mental" }
         }
     },
 
@@ -53,14 +37,6 @@ const UCPS = {
     },
 
     bindEvents: function () {
-        // Mode Selector for True Date
-        const modeSel = document.getElementById('true-date-mode');
-        if (modeSel) {
-            modeSel.addEventListener('change', (e) => {
-                this.state.trueDateMode = e.target.value;
-                this.requestUpdate();
-            });
-        }
 
         // Listen for Location Dropdown changes to update the "Now" state
         const locInput = document.getElementById('input-location');
@@ -72,21 +48,7 @@ const UCPS = {
         }
     },
 
-    setDisplayMode: function (mode) {
-        if (!['A', 'B', 'C'].includes(mode)) return;
-        this.state.displayMode = mode;
 
-        // Update Button UI
-        ['a', 'b', 'c'].forEach(m => {
-            const btn = document.getElementById(`mode-btn-${m}`);
-            if (btn) {
-                if (m.toUpperCase() === mode) btn.classList.add('active');
-                else btn.classList.remove('active');
-            }
-        });
-
-        this.requestUpdate();
-    },
 
     // Main Update Request
     requestUpdate: function () {
@@ -97,13 +59,8 @@ const UCPS = {
     startClock: function () {
         // Update "Now" time continuously
         setInterval(() => {
-            if (this.state.trueDateMode === 'now') {
-                this.updateNowTime();
-                this.updateDisplay();
-            } else {
-                // Just update display to catch mode switches valid static data
-                this.updateDisplay();
-            }
+            this.updateNowTime();
+            this.updateDisplay();
         }, 100);
     },
 
@@ -158,7 +115,6 @@ const UCPS = {
         // GO (Galactic Orbit)
         if (data.x.go && data.x.go.val) {
             let s = `GO.${data.x.go.val}`;
-            if (this.state.displayMode === 'C' && data.x.go.lifecycle !== null) s += `.L(${data.x.go.lifecycle})`;
             add(s, "Galaxy");
         }
 
@@ -170,14 +126,12 @@ const UCPS = {
         // StO (Stellar Orbit)
         if (data.x.sto && data.x.sto.val) {
             let s = `StO.${data.x.sto.val}`;
-            if (this.state.displayMode === 'C' && data.x.sto.lifecycle !== null) s += `.L(${data.x.sto.lifecycle})`;
             add(s, "Star");
         }
 
         // PO (Planetary Orbit)
         if (data.x.po && data.x.po.val) {
             let s = `${data.x.po.val}.0`;
-            if (this.state.displayMode === 'C' && data.x.po.lifecycle !== null) s += `.L(${data.x.po.lifecycle})`;
             add(s, "Planet");
         }
 
@@ -203,15 +157,7 @@ const UCPS = {
     updateDisplay: function () {
         const displayEl = document.getElementById('ucps-coords');
 
-        let activeData;
-        if (this.state.trueDateMode === 'now') {
-            activeData = this.state.current;
-        } else if (this.state.trueDateMode === 'custom') {
-            activeData = this.state.custom;
-        } else {
-            // placeholders
-            activeData = this.state.current;
-        }
+        let activeData = this.state.current;
 
 
 
