@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Cosmic Positioning System</title>
+    <meta name="description"
+        content="UCPS is a multidimensional framework that integrates spacetime position, dimensional context, and existential development into one unified structure.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/starwars.css">
+    <link rel="stylesheet" href="css/rake.css">
+    <link rel="stylesheet" href="css/cnscns-widget.css">
+
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💫</text></svg>">
+</head>
+
+<body>
+    <canvas id="star-canvas"></canvas>
+
+    <nav class="glass-nav">
+        <div class="logo">
+            <img src="assets/ucps-logo.png" alt="UCPS Logo" style="height: 36px; width: auto; object-fit: contain;">
+            UCPS
+        </div>
+        <div class="nav-links">
+            <a href="#phenomecon-banner" style="padding: 0; display: flex; align-items: center; margin-right: 0.5rem;"
+                title="Phenomecon Experience">
+                <img src="assets/phenomecon-logo.png" alt="Phenomecon" style="height: 20px; object-fit: contain;">
+            </a>
+            <a href="#" onclick="openDimensionOverlay(); return false;">Dimension Viewer</a>
+            <a href="founders.html">Founders</a>
+            <a href="#feedback">Feedback</a>
+            <a href="#community">Community</a>
+            <a href="#pricing">Shop</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container hero-content">
+
+
+            <div class="solar-system-model">
+                <div class="orbit-system">
+                    <div class="sun"></div>
+
+                    <div class="orbit mercury-orbit">
+                        <div class="planet mercury"></div>
+                    </div>
+
+                    <div class="orbit venus-orbit">
+                        <div class="planet venus"></div>
+                    </div>
+
+                    <div class="orbit earth-orbit">
+                        <div class="planet earth"></div>
+                    </div>
+
+                    <div class="orbit mars-orbit">
+                        <div class="planet mars"></div>
+                    </div>
+
+                    <div class="orbit jupiter-orbit">
+                        <div class="planet jupiter"></div>
+                    </div>
+
+                    <div class="orbit saturn-orbit">
+                        <div class="planet saturn">
+                            <div class="ring"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1>The Unified Cosmic Positioning System</h1>
+            <p class="subtitle"
+                style="color: var(--accent-cyan); letter-spacing: 0.15em; text-transform: uppercase; font-size: 1.1rem; margin-top: 0.5rem; margin-bottom: 2.5rem; font-weight: 600;">
+                Discovering your True Date</p>
+
+            <button class="btn-glow star-wars-trigger" id="star-wars-btn"
+                style="margin-bottom: 2rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <span>🌌</span>
+                Movie Mode
+            </button>
+
+            <div class="panel"
+                style="margin: 0 auto 2rem auto; padding: 1.5rem 2rem; background: rgba(0,0,0,0.6); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 12px; max-width: fit-content; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <h4
+                        style="color: var(--accent-cyan); margin-bottom: 0.2rem; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.9rem;">
+                        The True Date</h4>
+                    <div id="universal-time-display"
+                        style="font-family: 'Space Grotesk', monospace; color: rgba(255,255,255,0.7); font-size: 0.85rem; letter-spacing: 0.05em;">
+                        <!-- Time populates here -->
+                    </div>
+                </div>
+
+                <div id="ucps-coords"
+                    style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 5px 0;">
+                    <!-- Populated dynamically by ucps_logic.js -->
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: -1.2rem; margin-bottom: 2.5rem;">
+                <a href="#soul-coordinates-section" style="text-decoration: none;">
+                    <button class="btn-small-glow"
+                        style="font-size: 0.85rem; padding: 0.5rem 1.5rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.3s ease;">
+                        Get Your Soul's Coordinates <span
+                            style="display: inline-block; transform: translateY(1px); color: var(--accent-cyan); margin-left: 0.3rem;">↓</span>
+                    </button>
+                </a>
+            </div>
+
+            <div class="panel what-is-ucps-bubble">
+                <h3>What is UCPS?</h3>
+                <p>
+                    For centuries, humanity has used separate systems to answer different parts of the same question:
+                    where are we? Astronomy maps stars and galaxies, geography maps Earth coordinates, physics models
+                    spacetime, and spiritual or psychological systems describe internal development.
+                </p>
+
+                <div class="date-grid">
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Gregorian</div>
+                        <div id="val-gregorian" class="date-card-value">--</div>
+                    </div>
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Holocene (HE)</div>
+                        <div id="val-holocene" class="date-card-value">--</div>
+                    </div>
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Chinese Year</div>
+                        <div id="val-chinese" class="date-card-value val-gold">--</div>
+                    </div>
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Solar Zodiac</div>
+                        <div id="val-zodiac" class="date-card-value val-cyan">--</div>
+                    </div>
+                    <div class="date-counter-card moon-card">
+                        <div class="date-card-label">Lunar Phase</div>
+                        <div class="moon-wrap"><span id="val-moon-icon">🌑</span></div>
+                        <div id="val-moon-text" class="date-card-value">--</div>
+                    </div>
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Planetary Age</div>
+                        <div id="val-earth-age" class="date-card-value val-gold">4.543 Billion Yrs</div>
+                    </div>
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Mayan</div>
+                        <div id="val-mayan" class="date-card-value">--</div>
+                    </div>
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Hebrew</div>
+                        <div id="val-hebrew" class="date-card-value">--</div>
+                    </div>
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Islamic</div>
+                        <div id="val-islamic" class="date-card-value">--</div>
+                    </div>
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Hindu</div>
+                        <div id="val-hindu" class="date-card-value">--</div>
+                    </div>
+                    <div class="date-counter-card central-example-card">
+                        <div class="date-card-label">Central U.S. Example (America/Chicago)</div>
+                        <div id="val-central-example" class="date-card-value">--</div>
+                    </div>
+                </div>
+
+                <p>
+                    Each contributes useful data, but they operate in isolation. UCPS exists to unify these perspectives
+                    into one structured language without replacing the source systems themselves.
+                </p>
+            </div>
+
+            <div class="panel originality-sidebar">
+                <h3>Why is UCPS Needed?</h3>
+
+                <p>While there are peer-level models that explore aspects of universal cycles, such as:</p>
+                <ul class="peer-models-list">
+                    <li><strong>Mainstream Cosmology:</strong> Big Bang theory, multiverse hypotheses, and cyclic
+                        universe models like the Big Bounce or Ekpyrotic Universe.</li>
+                    <li><strong>Astrophysical Observations:</strong> Galactic rotations, stellar lifecycles, and
+                        planetary motions.</li>
+                    <li><strong>Esoteric Systems:</strong> Yuga cycles, Theosophical cosmic rounds, the Kabbalistic
+                        Tree of Life, and astrological cycles.</li>
+                    <li><strong>Spiritual Cosmology:</strong> Teachings on dimensional planes, soul journeys, and
+                        fractal creation myths.</li>
+                </ul>
+
+                <p class="synthesis-note">
+                    The Unified Cosmic Positioning System (UCPS) is a groundbreaking framework that synthesizes concepts
+                    from cosmology, astrophysics, metaphysical traditions, and consciousness mapping into a unified,
+                    fractal model.
+                </p>
+
+                <p>However, none of these systems provide a comprehensive, visual, and positional model that:</p>
+                <ul class="ucps-differentiators">
+                    <li>✅ Maps a being's location within a nested cosmic framework — from Universe to Galaxy to Star
+                        to Planet to Satellite.</li>
+                    <li>✅ Integrates dynamic universe life cycles (UCLXx Gears), where each universe progresses from a
+                        Big Bang to a Great Attractor, then transitions into the next universe (U1, U-1, etc.).</li>
+                    <li>✅ Offers a living clock system where the universe itself is a measurable cycle within the
+                        greater multiversal flow.</li>
+                    <li>✅ Uses fractal gears to visualize the rotational relationships between cosmic bodies, with
+                        optional overlays based on the being's position or vibrational alignment.</li>
+                </ul>
+
+                <div class="originality-summary">
+                    <p>The UCPS is original in its scope, logic, and visual representation. It is:</p>
+                    <ul>
+                        <li>A tool for <strong>positional awareness</strong> in the cosmos.</li>
+                        <li>A framework for understanding <strong>existence as a fractal, evolving system</strong>.
+                        </li>
+                        <li>A bridge between <strong>scientific cosmology</strong> and <strong>spiritual
+                                metaphysics</strong>.</li>
+                    </ul>
+                    <p class="invitation-text">
+                        This model <strong>invites</strong> further exploration, collaborative refinement, and
+                        multidisciplinary inquiry — paving the way for a new era of multiversal navigation and cosmic
+                        understanding.
+                    </p>
+                </div>
+
+                <div class="originality-footer">
+                    <p>©2025 Cosmic Compass Collective</p>
+                    <p class="small">Patent Pending</p>
+                </div>
+            </div>
+
+            <div class="panel xyz-info-bubble">
+                <h3>The Cosmic Cartesian Coordinates</h3>
+                <p class="xyz-intro">
+                    The cosmos is not a flat plane, nor is existence a single-threaded experience. Navigating the living
+                    tapestry of space, time, dimension, and consciousness requires a <strong>Three-Axis Cartesian
+                        System</strong>.
+                </p>
+
+                <div class="xyz-infographic-grid">
+                    <!-- X Axis -->
+                    <div class="xyz-infographic-card x-axis-card">
+                        <div class="xyz-icon-wrap">
+                            <span class="xyz-letter">X</span>
+                            <span class="xyz-emoji">🔭</span>
+                        </div>
+                        <h4 class="xyz-title">Spacetime Position</h4>
+                        <p class="xyz-subtitle">Where &amp; When You Are</p>
+                        <ul class="xyz-bullets">
+                            <li>Physical Location (Galaxies, Stars)</li>
+                            <li>Temporal Timestamp</li>
+                            <li>Your cosmic GPS coordinates</li>
+                        </ul>
+                    </div>
+
+                    <!-- Y Axis -->
+                    <div class="xyz-infographic-card y-axis-card">
+                        <div class="xyz-icon-wrap">
+                            <span class="xyz-letter">Y</span>
+                            <span class="xyz-emoji">✨</span>
+                        </div>
+                        <h4 class="xyz-title">Dimensional Context</h4>
+                        <p class="xyz-subtitle">How You Are Expressing</p>
+                        <ul class="xyz-bullets">
+                            <li>Vibrational Resonance</li>
+                            <li>Dimensional Layers</li>
+                            <li>Branching Realities</li>
+                        </ul>
+                    </div>
+
+                    <!-- Z Axis -->
+                    <div class="xyz-infographic-card z-axis-card">
+                        <div class="xyz-icon-wrap">
+                            <span class="xyz-letter">Z</span>
+                            <span class="xyz-emoji">🧬</span>
+                        </div>
+                        <h4 class="xyz-title">Existential Evolution</h4>
+                        <p class="xyz-subtitle">Who You Are Becoming</p>
+                        <ul class="xyz-bullets">
+                            <li>Journey of Consciousness</li>
+                            <li>Soul Maturation</li>
+                            <li>Developmental Phase</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="xyz-closing-box">
+                    <p>
+                        Without all three, any map of existence is incomplete—like trying to locate a star by height
+                        alone, or define a being by time without energy or intention. Together, <strong>X, Y, and
+                            Z</strong> form a dynamic living point within the grand symphony of creation.
+                    </p>
+                </div>
+            </div>
+
+            <div id="true-date-display" class="panel compact-date">
+                <div class="panel-header-row">
+                    <h2>Current True Date</h2>
+                </div>
+
+                <p class="widget-xyz-description">
+                    UCPS unifies True Date with a three-axis model: X tracks measurable spacetime position and temporal
+                    context, Y identifies dimensional and branching reality context, and Z maps consciousness
+                    development and existential phase. Together, XYZ form a single coordinate language for where,
+                    within which layer, and at what developmental state a point of existence is located.
+                </p>
+
+                <div class="true-date-counter">
+                    <div id="true-date-counter-primary" class="counter-primary"
+                        style="font-size: 3rem; font-weight: bold; text-shadow: 0 0 15px rgba(0, 255, 255, 0.4);">--
+                    </div>
+                    <div id="true-date-counter-secondary" class="counter-secondary" style="font-size: 1.2rem;">--</div>
+                    <div id="true-date-counter-xyz" class="counter-xyz" style="font-size: 1.1rem; display: none;">X -- ·
+                        Y -- · Z --
+                    </div>
+
+                    <!-- True Date Ticker Example -->
+                    <div id="true-date-ticker-breakdown"
+                        style="margin-top: 1.5rem; position: relative; padding: 10px; background: rgba(0,0,0,0.5); border-radius: 12px; border: 1px solid rgba(0,255,255,0.2);">
+                        <div id="td-ticker-text"
+                            style="font-size: 1.3rem; font-family: 'Space Grotesk', monospace; font-weight: bold; color: #fff;">
+                            <span id="td-x" style="color: var(--accent-cyan);">X: Spacetime</span> · <span id="td-y"
+                                style="color: var(--accent-magenta);">Y: Dimension</span> · <span id="td-z"
+                                style="color: var(--accent-gold);">Z: Soul Node</span>
+                        </div>
+                        <div
+                            style="display: flex; justify-content: space-between; max-width: 450px; margin: 0 auto; margin-top: 0.8rem; color: var(--accent-blue); font-size: 0.85rem; font-family: 'Quicksand', sans-serif;">
+                            <div style="text-align: center; flex: 1;">↑<br>Where & When<br><span
+                                    style="color:rgba(255,255,255,0.5); font-size: 0.7rem;">(Calculated location)</span>
+                            </div>
+                            <div style="text-align: center; flex: 1;">↑<br>Reality Layer<br><span
+                                    style="color:rgba(255,255,255,0.5); font-size: 0.7rem;">(Vibrational context)</span>
+                            </div>
+                            <div style="text-align: center; flex: 1;">↑<br>Soul Stage<br><span
+                                    style="color:rgba(255,255,255,0.5); font-size: 0.7rem;">(Your mapped point)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Consciousness Dimension Viewer - Teaser -->
+                <div id="cosmic-viewer"
+                    style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
+                    <div id="dimension-teaser"
+                        style="cursor: pointer; text-align: center; background: linear-gradient(135deg, rgba(5,5,15,0.9), rgba(15,5,25,0.95)); border: 1px solid rgba(177,75,244,0.25); border-radius: 16px; padding: 2.5rem 2rem; transition: all 0.4s ease; position: relative; overflow: hidden;"
+                        onmouseover="this.style.borderColor='rgba(177,75,244,0.6)'; this.style.boxShadow='0 0 40px rgba(177,75,244,0.15)';"
+                        onmouseout="this.style.borderColor='rgba(177,75,244,0.25)'; this.style.boxShadow='none';"
+                        onclick="openDimensionOverlay()">
+                        <div style="font-size: 2rem; margin-bottom: 0.8rem; opacity: 0.7;">∞</div>
+                        <h3
+                            style="font-family: var(--font-heading); font-size: 1.4rem; color: #fff; margin-bottom: 0.5rem; letter-spacing: 0.1em;">
+                            Your Soul Has Dimensions...</h3>
+                        <p
+                            style="color: rgba(255,255,255,0.5); font-size: 0.85rem; max-width: 400px; margin: 0 auto 1.5rem;">
+                            Journey from Singularity through Consciousness to Source. An interactive scroll experience
+                            mapping the layers of existence.</p>
+                        <div style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.8rem; border: 1px solid rgba(0,212,255,0.4); border-radius: 30px; color: var(--accent-cyan); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.3s;"
+                            onmouseover="this.style.background='rgba(0,212,255,0.1)'; this.style.borderColor='rgba(0,212,255,0.7)';"
+                            onmouseout="this.style.background='transparent'; this.style.borderColor='rgba(0,212,255,0.4)';">
+                            <span>Enter The Experience</span>
+                            <span style="font-size: 1.1rem;">→</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="true-date-ticker" class="true-date-ticker" aria-live="polite">
+                <div class="ticker-track">
+                    <span id="true-date-ticker-text">Initializing UCPS True Date ticker...</span>
+                </div>
+            </div>
+
+            <!-- Natal Chart Generator -->
+            <div id="soul-coordinates-section" class="panel natal-chart-container"
+                style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; text-align: center;">
+                <h3>Get Your Soul's Coordinates</h3>
+                <p style="font-size: 0.85rem; margin-bottom: 1rem; color: rgba(255,255,255,0.6);">Generate your
+                    Minimalist Astro Chart, discover your Human Design Type, and calculate your true Position of
+                    Soul.
+                </p>
+
+                <div class="natal-form-container"
+                    style="max-width: 450px; margin: 0 auto 3rem auto; text-align: left; font-family: 'Quicksand', sans-serif;">
+
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="natal-name"
+                            style="display: block; margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">My name
+                            is</label>
+                        <input type="text" id="natal-name" class="glass-input dark-theme-input"
+                            style="width: 100%; padding: 0.8rem 1.2rem; font-size: 1rem; border-radius: 25px; font-family: inherit;" />
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">I was
+                            born on <span style="color: rgba(255,255,255,0.5);">*</span></label>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <select id="natal-month" class="glass-input dark-theme-input text-center"
+                                style="width: 80px; padding: 0.8rem; font-size: 1rem; cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
+                                <option value="" disabled selected>MM</option>
+                            </select>
+                            <span style="color: rgba(255,255,255,0.5); font-size: 1.2rem;">/</span>
+                            <select id="natal-day" class="glass-input dark-theme-input text-center"
+                                style="width: 80px; padding: 0.8rem; font-size: 1rem; cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
+                                <option value="" disabled selected>DD</option>
+                            </select>
+                            <span style="color: rgba(255,255,255,0.5); font-size: 1.2rem;">/</span>
+                            <select id="natal-year" class="glass-input dark-theme-input text-center"
+                                style="width: 100px; padding: 0.8rem; font-size: 1rem; cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
+                                <option value="" disabled selected>YYYY</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">At
+                            birth time <span style="color: rgba(255,255,255,0.5);">*</span></label>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+                            <select id="natal-hour" class="glass-input dark-theme-input text-center"
+                                style="width: 80px; padding: 0.8rem; font-size: 1rem; cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
+                                <option value="" disabled selected>HH</option>
+                            </select>
+                            <span style="color: rgba(255,255,255,0.5); font-size: 1.2rem;">:</span>
+                            <select id="natal-minute" class="glass-input dark-theme-input text-center"
+                                style="width: 80px; padding: 0.8rem; font-size: 1rem; cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
+                                <option value="" disabled selected>MM</option>
+                            </select>
+                            <select id="natal-ampm" class="glass-input dark-theme-input"
+                                style="padding: 0.8rem 1.2rem; font-size: 1rem; font-weight: bold; background-color: rgba(10,10,20,0.8); cursor: pointer; border-radius: 25px; font-family: inherit; appearance: none;">
+                                <option value="AM">AM</option>
+                                <option value="PM">PM</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="natal-unknown-time"
+                                style="width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent-magenta);" />
+                            <label for="natal-unknown-time"
+                                style="font-size: 0.9rem; color: rgba(255,255,255,0.8); cursor: pointer;">I don't
+                                know my birth time</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.5rem; position: relative; z-index: 100;">
+                        <label for="natal-location"
+                            style="display: block; margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">In <span
+                                style="color: rgba(255,255,255,0.5);">*</span></label>
+                        <div style="position: relative;">
+                            <input type="text" id="natal-location" class="glass-input dark-theme-input"
+                                placeholder="SEARCH FOR A CITY..." autocomplete="off"
+                                style="width: 100%; padding: 0.8rem 1.2rem; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: bold; color: rgba(255,255,255,0.8); border-radius: 25px; font-family: inherit;" />
+
+                            <div id="city-autocomplete-list" class="autocomplete-items"
+                                style="display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 99; background: rgba(10,10,30,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(177, 75, 244, 0.4); border-radius: 20px; margin-top: 8px; max-height: 250px; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                            </div>
+
+                            <div class="gps-readout"
+                                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); display: flex; gap: 0.5rem; background: rgba(0,0,0,0.5); padding: 0.3rem 0.6rem; border-radius: 20px; pointer-events: none;">
+                                <span id="gps-lat"
+                                    style="font-family: inherit; font-size: 0.75rem; color: var(--accent-gold);">Lat:
+                                    --</span>
+                                <span id="gps-lng"
+                                    style="font-family: inherit; font-size: 0.75rem; color: var(--accent-gold);">Lng:
+                                    --</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 2rem; position: relative; z-index: 90;">
+                        <label for="natal-email"
+                            style="display: block; margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">My email
+                            is <span style="color: rgba(255,255,255,0.5);">*</span></label>
+                        <input type="email" id="natal-email" class="glass-input dark-theme-input"
+                            placeholder="EMAIL ADDRESS"
+                            style="width: 100%; padding: 0.8rem 1.2rem; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: bold; color: rgba(255,255,255,0.8); margin-bottom: 0.8rem; border-radius: 25px; font-family: inherit;" />
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="natal-subscribe" checked
+                                style="width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent-magenta);" />
+                            <label for="natal-subscribe"
+                                style="font-size: 0.9rem; color: rgba(255,255,255,0.8); cursor: pointer;">Send me
+                                astrology updates</label>
+                        </div>
+                    </div>
+
+                    <button class="btn-glow" id="btn-generate-natal"
+                        style="padding: 0.8rem 2rem; font-size: 1rem; font-family: inherit; letter-spacing: 0.05em; background: transparent; border: 2px solid rgba(255,255,255,0.2); border-radius: 30px; color: #fff; width: auto; transition: all 0.3s ease;">
+                        Get My Coordinates <span style="color: var(--accent-blue); margin-left: 0.3rem;">></span>
+                    </button>
+
+                    <div id="aspect-filters"
+                        style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; opacity: 0; pointer-events: none; transition: opacity 0.5s;">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="harmonious">Harmonious</button>
+                        <button class="filter-btn" data-filter="challenging">Challenging</button>
+                    </div>
+                </div>
+
+                <div id="natal-canvas-wrapper"
+                    style="position: relative; width: 100%; max-width: 400px; margin: 0 auto; aspect-ratio: 1; border-radius: 50%; border: 1px solid rgba(177, 75, 244, 0.3); background: rgba(0,0,0,0.4); box-shadow: inset 0 0 30px rgba(0,212,255,0.1);">
+                    <canvas id="natal-canvas" width="400" height="400"
+                        style="width: 100%; height: 100%; border-radius: 50%;"></canvas>
+
+                    <!-- Time display overlay -->
+                    <div id="natal-time-display"
+                        style="position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); font-family: 'Space Grotesk', monospace; color: var(--accent-cyan); font-size: 1.1rem; font-weight: bold; text-shadow: 0 0 10px rgba(0,212,255,0.5); opacity: 0; transition: opacity 0.5s;">
+                        --:-- --
+                    </div>
+
+                    <div id="natal-loading"
+                        style="position: absolute; top:50%; left:50%; transform: translate(-50%, -50%); color: var(--accent-gold); font-size: 0.8rem; display: none;">
+                        Calculating Transits...</div>
+                </div>
+
+                <!-- Soul Results Context (Human Design + Position) -->
+                <div id="soul-results-card" class="panel"
+                    style="display: none; margin-top: 3rem; background: linear-gradient(135deg, rgba(10,10,20,0.8), rgba(20,10,30,0.9)); border-radius: 25px; border-color: rgba(177, 75, 244, 0.4); text-align: left; font-family: 'Quicksand', sans-serif;">
+                    <h4 style="color: var(--accent-gold); margin-bottom: 0.5rem; font-size: 1.2rem;">Cosmic Profile
+                    </h4>
+                    <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8); margin-bottom: 1rem;">Based on your
+                        coordinates, here are your core signatures:</p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
+                        <div
+                            style="background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: center; position: relative; overflow: hidden;">
+                            <div
+                                style="font-size: 0.75rem; text-transform: uppercase; color: var(--accent-cyan); margin-bottom: 0.3rem;">
+                                Human Design Type</div>
+
+                            <div style="position: relative; width: 100px; height: 100px; margin: 0.5rem auto;">
+                                <img src="assets/human_design_template.png"
+                                    style="width: 100%; height: 100%; object-fit: contain; opacity: 0.8;"
+                                    alt="Human Design Bodygraph" />
+                            </div>
+
+                            <div id="soul-hd-type" style="font-size: 1.1rem; font-weight: bold; color: #fff;">--
+                            </div>
+                            <div id="soul-hd-profile"
+                                style="font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 0.2rem;">--
+                            </div>
+                        </div>
+
+                        <div
+                            style="background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
+                            <div
+                                style="font-size: 0.75rem; text-transform: uppercase; color: var(--accent-magenta); margin-bottom: 0.3rem;">
+                                Primary Astro Sign</div>
+                            <div id="soul-astro-sign"
+                                style="font-size: 1.5rem; font-weight: bold; color: #fff; margin-top: 1rem;">--
+                            </div>
+                            <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 0.2rem;">Sun
+                                position</div>
+                        </div>
+                    </div>
+
+                    <div
+                        style="margin-top: 1rem; background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                        <div
+                            style="font-size: 0.75rem; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 0.3rem;">
+                            Position of Soul (Z-Axis Node)</div>
+                        <div id="soul-z-node"
+                            style="font-size: 1.1rem; font-weight: bold; color: #fff; font-family: 'Space Grotesk', monospace;">
+                            --</div>
+                        <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 0.4rem;">This node
+                            maps roughly to your developmental phase and energetic expression. It has been synced to
+                            the main widget above.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-arrow" id="scroll-arrow">
+            <span>▼</span>
+            <span class="scroll-label">Scroll to explore</span>
+        </div>
+        </div>
+    </header>
+
+
+    <section id="community" class="section below-fold" style="padding-top: 2rem; padding-bottom: 2rem;">
+        <div class="container" style="max-width: 600px;">
+            <h2 style="text-align: center; font-size: 1.3rem; margin-bottom: 0.3rem;">Community</h2>
+            <p class="section-sub" style="text-align: center; margin-bottom: 1.2rem; font-size: 0.8rem;">Step into the
+                living room of the cosmos</p>
+
+            <div class="panel"
+                style="background: linear-gradient(135deg, rgba(8, 12, 23, 0.85), rgba(15, 10, 25, 0.9)); border: 1px solid rgba(0, 212, 255, 0.25); border-radius: 14px; padding: 1.5rem; box-shadow: 0 5px 20px rgba(0,0,0,0.5);">
+
+                <div style="text-align: center; margin-bottom: 1rem;">
+                    <span style="font-size: 1.8rem;">☕</span>
+                    <h3
+                        style="font-size: 1.1rem; color: var(--accent-gold); margin-top: 0.3rem; margin-bottom: 0.3rem; text-shadow: 0 0 10px rgba(255,215,0,0.3);">
+                        The Cosmic Cafe</h3>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 0.8rem; max-width: 450px; margin: 0 auto;">Our
+                        free Telegram community where seekers, researchers, and cosmic explorers connect daily.</p>
+                </div>
+
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.6rem; margin-bottom: 1rem;">
+                    <div
+                        style="background: rgba(0,0,0,0.4); padding: 0.7rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
+                        <span style="font-size: 1.2rem; display: block; margin-bottom: 0.3rem;">🔭</span>
+                        <strong style="color: #fff; font-size: 0.7rem;">Live Updates</strong>
+                        <p style="font-size: 0.6rem; color: rgba(255,255,255,0.5); margin-top: 0.2rem;">Breakthroughs &
+                            discoveries from the founders.</p>
+                    </div>
+                    <div
+                        style="background: rgba(0,0,0,0.4); padding: 0.7rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
+                        <span style="font-size: 1.2rem; display: block; margin-bottom: 0.3rem;">🗣️</span>
+                        <strong style="color: #fff; font-size: 0.7rem;">Open Discussions</strong>
+                        <p style="font-size: 0.6rem; color: rgba(255,255,255,0.5); margin-top: 0.2rem;">Astrology,
+                            consciousness, metaphysics & more.</p>
+                    </div>
+                    <div
+                        style="background: rgba(0,0,0,0.4); padding: 0.7rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
+                        <span style="font-size: 1.2rem; display: block; margin-bottom: 0.3rem;">🤝</span>
+                        <strong style="color: #fff; font-size: 0.7rem;">Meet Your People</strong>
+                        <p style="font-size: 0.6rem; color: rgba(255,255,255,0.5); margin-top: 0.2rem;">Like-minded
+                            souls on the same wavelength.</p>
+                    </div>
+                </div>
+
+                <div style="text-align: center;">
+                    <a href="https://t.me/" target="_blank" rel="noopener noreferrer" class="btn-glow"
+                        style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; padding: 0.7rem 1.8rem; text-decoration: none;">
+                        💬 Join The Cosmic Cafe
+                    </a>
+                    <p style="font-size: 0.65rem; color: rgba(255,255,255,0.4); margin-top: 0.5rem;">Free to join · No
+                        spam · Good vibes only</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="section below-fold">
+        <div class="container pricing-container">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h2
+                    style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 0.5rem; text-shadow: 0 0 15px rgba(0,212,255,0.4); color: #fff; background: none; -webkit-text-fill-color: initial;">
+                    UNIVERSAL COSMIC POSITIONING SYSTEM (UCPS2)</h2>
+                <p
+                    style="color: var(--accent-gold); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: bold;">
+                    Discover your true date & align with the cosmos</p>
+            </div>
+
+            <!-- Unified Shop Window -->
+            <div
+                style="background: linear-gradient(135deg, rgba(8,12,23,0.85), rgba(15,10,25,0.9)); border: 1px solid rgba(0, 212, 255, 0.25); border-radius: 20px; padding: 2.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+                <div class="pricing-grid">
+                    <!-- Tier 1: Automated Cosmic Reports -->
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h3>AUTOMATED COSMIC REPORTS</h3>
+                            <div class="price">$6.99</div>
+                            <div style="font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 0.3rem;">Digital
+                                Delivery Within 24 Hours</div>
+                        </div>
+                        <div class="pricing-icons">
+                            <div class="icon-wrap">
+                                <span class="emoji">🌌</span>
+                                <span class="icon-label">ASTRO<br>CHART</span>
+                            </div>
+                            <div class="icon-wrap">
+                                <span class="emoji">🧬</span>
+                                <span class="icon-label">HUMAN DESIGN<br>BODYGRAPH</span>
+                            </div>
+                            <div class="icon-wrap">
+                                <span class="emoji">📜</span>
+                                <span class="icon-label">TRUE DATE<br>REPORT</span>
+                            </div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>Personalized Astro Chart Placements</li>
+                            <li>Detailed Human Design Bodygraph Analysis</li>
+                            <li>Specific Z-Axis Soul Node Coordinates</li>
+                            <li>Custom 'True Date' Calculation</li>
+                            <li>Direct Email Delivery</li>
+                            <li>Secure Supabase Backend</li>
+                        </ul>
+                    </div>
+
+                    <!-- Tier 2: Stellar Lifetime Pass -->
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h3>STELLAR LIFETIME PASS</h3>
+                            <div class="price">$75</div>
+                            <div style="font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 0.3rem;">One-Time
+                                Payment / Lifetime Access</div>
+                        </div>
+                        <div class="pricing-icons">
+                            <div class="icon-wrap">
+                                <span class="emoji">🧭</span>
+                            </div>
+                            <div class="icon-wrap">
+                                <span class="emoji">📜</span>
+                            </div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>All Automated Reports Features Included</li>
+                            <li>Lifetime Q&A Direct to Founders</li>
+                            <li>Deeper Cosmic Direction Guidance</li>
+                            <li>Monthly Group Alignment Calls</li>
+                            <li>Priority Support Channels</li>
+                        </ul>
+                    </div>
+
+                    <!-- Tier 3: Architect Lifetime Pass -->
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h3>ARCHITECT LIFETIME PASS</h3>
+                            <div class="price">$250</div>
+                            <div style="font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 0.3rem;">Includes
+                                Physical Custom Print</div>
+                        </div>
+                        <div class="pricing-icons">
+                            <div class="icon-wrap" style="transform: scale(1.3); margin-top: 5px;">
+                                <span class="emoji" style="margin-bottom:0; font-size: 2.8rem;">🧘🏽‍♂️</span>
+                                <span class="emoji"
+                                    style="font-size: 0.8rem; position:absolute; bottom:-10px; right:0px;">🗺️</span>
+                            </div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>All Stellar Pass Features Included</li>
+                            <li>One-on-One Coordinate Calibration (30 min)</li>
+                            <li>Physical Personalized Cosmic Map Print</li>
+                            <li>Early Access to New 'Gears' (G2-G4)</li>
+                            <li>Beta Tester Priority for UCPS Tools</li>
+                        </ul>
+                    </div>
+
+                    <!-- Tier 4: Founder's Tier -->
+                    <div class="pricing-card founder-tier">
+                        <div class="pricing-header">
+                            <h3>FOUNDER'S TIER</h3>
+                            <div class="price">$500</div>
+                            <div style="font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 0.3rem;">Limited
+                                Availability / Permanent Status</div>
+                        </div>
+                        <div class="pricing-icons" style="gap: 1.5rem;">
+                            <div class="icon-wrap">
+                                <span class="emoji" style="font-size: 2rem;">📂</span>
+                                <span class="icon-label">CLASSIFIED</span>
+                            </div>
+                            <div class="icon-wrap">
+                                <span class="emoji" style="font-size: 2rem;">💬</span>
+                                <span class="icon-label">DAILY CHAT</span>
+                            </div>
+                            <div class="icon-wrap">
+                                <span class="emoji" style="font-size: 2rem;">🏅</span>
+                                <span class="icon-label">PEER REVIEW</span>
+                            </div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>All Architect Pass Features Included</li>
+                            <li>24/7 Direct Daily Founders Access (Telegram)</li>
+                            <li>Access to Classified Whitepapers & Research</li>
+                            <li>Permanent Peer Review Credit on UCPS2.com</li>
+                            <li>Founding Member Certificate</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Delineation Line -->
+                <div
+                    style="height: 1px; background: linear-gradient(90deg, transparent, rgba(177,75,244,0.3), rgba(0,212,255,0.3), transparent); margin: 1.2rem 0;">
+                </div>
+
+                <!-- Donate / Support CTA integrated into tiers -->
+                <div style="text-align: center;">
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                        <span style="font-size: 1.2rem;">🌠</span>
+                        <div style="text-align: left; max-width: 380px;">
+                            <strong style="color: #fff; font-size: 0.8rem;">Support The Mission</strong>
+                            <p style="color: rgba(255,255,255,0.5); font-size: 0.65rem; margin-top: 0.15rem;">UCPS is an
+                                independent research project. Donations fund servers, research, tools & keeping the
+                                system
+                                free.</p>
+                        </div>
+                        <button class="btn-glow" type="button"
+                            style="font-size: 0.75rem; padding: 0.5rem 1.2rem; white-space: nowrap;">💜 Donate</button>
+                    </div>
+                    <p style="font-size: 0.55rem; color: rgba(255,255,255,0.3); margin-top: 0.5rem;">Every contribution
+                        moves us forward · Thank you 🙏</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="featured-product" class="section below-fold aura-painting-section">
+        <div class="container pricing-container">
+            <div class="aura-painting-container">
+                <div class="aura-painting-visual">
+                    <img src="assets/aura_painting.png" alt="Custom Aura Painting" class="aura-img" loading="lazy">
+                </div>
+                <div class="aura-painting-details">
+                    <span
+                        style="color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.15em; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.5rem; display: block;">Featured
+                        Product</span>
+                    <h3 class="aura-title">The Coordinates Aura Painting</h3>
+                    <div class="price">$45</div>
+                    <p class="aura-description">
+                        This is our masterclass product. A beautifully customized aura painting mathematically generated
+                        using your unique cosmic coordinates. We map your Spacetime Position, Dimensional Context, and
+                        Soul Stage
+                        directly into an intuitively hand-crafted, physical piece of high-frequency art. Perfect as an
+                        anchor
+                        for yourself or a gift for your loved ones.
+                    </p>
+                    <button class="btn-glow" style="font-size: 1.1rem; padding: 1rem 2.5rem;">Order Your Custom
+                        Aura</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="featured-poster" class="section below-fold aura-painting-section" style="padding-top: 1rem;">
+        <div class="container pricing-container">
+            <div class="aura-painting-container poster-container">
+                <div class="aura-painting-visual">
+                    <img src="assets/cosmic_poster.png" alt="Custom Cosmic Signature Map Poster" class="aura-img"
+                        loading="lazy"
+                        style="box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 40px rgba(255, 215, 0, 0.2);">
+                </div>
+                <div class="aura-painting-details">
+                    <span
+                        style="color: var(--accent-gold); text-transform: uppercase; letter-spacing: 0.15em; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.5rem; display: block;">Featured
+                        Print</span>
+                    <h3 class="aura-title" style="text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);">Your Cosmic Signature
+                        Map</h3>
+                    <div class="price" style="color: var(--accent-cyan); text-shadow: 0 0 15px rgba(0, 212, 255, 0.4);">
+                        $30</div>
+                    <p class="aura-description">
+                        A high-quality, custom physical poster print charting your unique position within the universe.
+                        Includes your intricately mapped Spacetime Position, Dimensional Context, and Existential
+                        Evolution. Perfect for your home or office. Discover your True Date and hang it with pride.
+                    </p>
+                    <button class="btn-glow"
+                        style="font-size: 1.1rem; padding: 1rem 2.5rem; border-color: rgba(255, 215, 0, 0.5);">Order
+                        Your Custom Poster</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="phenomecon-banner" class="section below-fold phenomecon-section">
+        <div class="container" style="text-align: center;">
+            <div
+                style="background: rgba(10, 20, 10, 0.4); border: 1px solid rgba(0, 255, 100, 0.3); border-radius: 20px; padding: 2rem; max-width: 800px; margin: 0 auto; box-shadow: 0 0 30px rgba(0, 255, 100, 0.1);">
+                <p
+                    style="color: var(--text-main); font-size: 1.2rem; margin-bottom: 1rem; letter-spacing: 0.05em; font-family: var(--font-heading);">
+                    Check us out at Phenomecon! Live and in person
+                </p>
+                <div style="margin-top: 1.5rem; display: flex; justify-content: center;">
+                    <img src="assets/phenomecon.png" alt="Phenomecon Sept 9-12, 2026 Vernal Utah"
+                        style="max-width: 100%; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.8);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="feedback" class="section below-fold">
+        <div class="container narrow">
+            <h2>Feedback</h2>
+            <p class="section-sub">Share improvements, edge cases, or use-case ideas. Submission routing is being
+                finalized.</p>
+            <form class="panel feedback-form" onsubmit="return false;">
+                <div class="form-group">
+                    <label for="feedback-name">Name</label>
+                    <input id="feedback-name" type="text" class="glass-input" placeholder="Your name">
+                </div>
+                <div class="form-group">
+                    <label for="feedback-email">Email</label>
+                    <input id="feedback-email" type="email" class="glass-input" placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="feedback-message">Message</label>
+                    <textarea id="feedback-message" class="glass-input" rows="5"
+                        placeholder="What should we improve?"></textarea>
+                </div>
+                <button class="btn-glow" type="submit">Send Feedback (Coming Soon)</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="section below-fold" style="padding-top: 1rem; padding-bottom: 3rem;">
+        <div class="container" style="max-width: 500px; text-align: center;">
+            <a href="founders.html" style="text-decoration: none; display: inline-block;">
+                <div style="background: linear-gradient(135deg, rgba(10, 8, 20, 0.85), rgba(20, 12, 30, 0.9)); border: 1px solid rgba(177, 75, 244, 0.3); border-radius: 16px; padding: 1.5rem 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.5); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;"
+                    onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 30px rgba(177,75,244,0.3)';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 20px rgba(0,0,0,0.5)';">
+                    <div style="display: flex; justify-content: center; gap: -8px; margin-bottom: 1rem;">
+                        <img src="assets/jen_laird.png" alt="Jen"
+                            style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid rgba(177,75,244,0.5); object-fit: cover; margin-right: -10px; z-index: 3;">
+                        <img src="assets/kristen_blair.png" alt="Kristen"
+                            style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid rgba(0,212,255,0.5); object-fit: cover; margin-right: -10px; z-index: 2;">
+                        <img src="assets/campton_wilkins.png" alt="Campton"
+                            style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid rgba(255,215,0,0.5); object-fit: cover; z-index: 1;">
+                    </div>
+                    <p
+                        style="color: #fff; font-size: 1rem; font-weight: bold; margin-bottom: 0.3rem; font-family: var(--font-heading);">
+                        Meet The Founders →</p>
+                    <p style="color: rgba(255,255,255,0.5); font-size: 0.75rem;">The minds behind the Cosmic Compass
+                        Collective</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2026 Cosmic Compass Collective</p>
+        <p class="small">Patent Pending</p>
+    </footer>
+
+    <!-- Star Wars Crawl Overlay -->
+    <div id="star-wars-overlay" class="star-wars-overlay hidden">
+        <button id="star-wars-close" class="star-wars-close">&times; Exit Archive</button>
+        <div class="star-wars-fade"></div>
+        <section class="star-wars-container">
+            <div class="star-wars-crawl" id="star-wars-crawl-content">
+                <!-- Content injected via JS -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Fullscreen Dimension Widget Overlay -->
+    <div id="dimension-overlay"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 10000; background: #000; display: none; opacity: 0; transition: opacity 0.5s ease;">
+        <div id="dimension-overlay-controls"
+            style="position: fixed; top: 0.8rem; right: 0.8rem; z-index: 10001; display: flex; gap: 0.5rem;">
+            <button id="btn-movie-mode" onclick="startMovieMode()"
+                style="padding: 0.5rem 1rem; background: rgba(0,0,0,0.8); border: 1px solid rgba(255,215,0,0.4); color: rgba(255,215,0,0.9); border-radius: 8px; cursor: pointer; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; backdrop-filter: blur(10px); transition: all 0.3s;">🎬
+                Movie Mode</button>
+            <button onclick="closeDimensionOverlay()"
+                style="padding: 0.5rem 1rem; background: rgba(0,0,0,0.8); border: 1px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.8); border-radius: 8px; cursor: pointer; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; backdrop-filter: blur(10px); transition: all 0.3s;">✕
+                Close</button>
+        </div>
+        <div id="cnscns-widget" style="width: 100%; height: 100%;"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/ucps_logic.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/location_data.js"></script>
+    <script src="js/ephemeris.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="js/position_widget.js"></script>
+    <script src="js/cnscns-widget.js"></script>
+    <script src="js/natal_chart.js"></script>
+</body>
+
+</html>

@@ -214,7 +214,8 @@ function updateEarthTranslations() {
     // Mayan Long Count (Extended past 2012)
     // 13.0.0.0.0 was Dec 21, 2012
     const valMayan = document.getElementById('val-mayan');
-    if (valMayan) {
+    const activeAstronomical = document.getElementById('active-astronomical-date');
+    if (valMayan || activeAstronomical) {
         const mayanEpoch = new Date('2012-12-21T00:00:00Z').getTime();
         const diffDays = Math.floor((now.getTime() - mayanEpoch) / (1000 * 60 * 60 * 24));
 
@@ -230,23 +231,31 @@ function updateEarthTranslations() {
         const uinal = Math.floor(rem / 20);
         const kin = rem % 20;
 
-        valMayan.innerText = `${baktun}.${katun}.${tun}.${uinal}.${kin}`;
+        const mayanText = `${baktun}.${katun}.${tun}.${uinal}.${kin}`;
+        if (valMayan) valMayan.innerText = mayanText;
+        if (activeAstronomical) activeAstronomical.innerText = `${mayanText} LC`;
     }
 
-    // Hebrew
+    // Hebrew (Lunisolar example)
     const valHebrew = document.getElementById('val-hebrew');
-    if (valHebrew) {
-        valHebrew.innerText = new Intl.DateTimeFormat('en-u-ca-hebrew', {
+    const activeLunisolar = document.getElementById('active-lunisolar-date');
+    if (valHebrew || activeLunisolar) {
+        const hebrewText = new Intl.DateTimeFormat('en-u-ca-hebrew', {
             day: 'numeric', month: 'long', year: 'numeric'
         }).format(now);
+        if (valHebrew) valHebrew.innerText = hebrewText;
+        if (activeLunisolar) activeLunisolar.innerText = hebrewText;
     }
 
-    // Islamic
+    // Islamic (Lunar example)
     const valIslamic = document.getElementById('val-islamic');
-    if (valIslamic) {
-        valIslamic.innerText = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {
+    const activeLunar = document.getElementById('active-lunar-date');
+    if (valIslamic || activeLunar) {
+        const islamicText = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {
             day: 'numeric', month: 'long', year: 'numeric'
         }).format(now);
+        if (valIslamic) valIslamic.innerText = islamicText;
+        if (activeLunar) activeLunar.innerText = islamicText;
     }
 
     // Hindu
@@ -255,6 +264,12 @@ function updateEarthTranslations() {
         valHindu.innerText = new Intl.DateTimeFormat('en-u-ca-indian', {
             day: 'numeric', month: 'long', year: 'numeric'
         }).format(now);
+    }
+
+    // Active Solar (Gregorian example)
+    const activeSolar = document.getElementById('active-solar-date');
+    if (activeSolar) {
+        activeSolar.innerText = `${dateStr}, ${now.getFullYear()} AD`;
     }
 
     if (valCentralExample) {

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Cosmic Positioning System</title>
+    <meta name="description"
+        content="UCPS is a multidimensional framework that integrates spacetime position, dimensional context, and existential development into one unified structure.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&family=Cinzel:wght@400;700&family=Outfit:wght@300;400;600&family=Space+Grotesk:wght@300;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💫</text></svg>">
+</head>
+
+<body>
+    <canvas id="star-canvas"></canvas>
+
+    <nav class="glass-nav">
+        <div class="logo">UCPS <span class="classified-badge">🔒 CLASSIFIED / PROPRIETARY</span></div>
+        <div class="nav-links">
+            <a href="#library">Library</a>
+            <a href="#feedback">Feedback</a>
+            <a href="#community">Community</a>
+            <a href="#get-card">Get Your Card</a>
+            <a href="#donate">Donate</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container hero-content">
+
+
+            <div class="solar-system-model">
+                <div class="orbit-system">
+                    <div class="sun"></div>
+
+                    <div class="orbit mercury-orbit">
+                        <div class="planet mercury"></div>
+                    </div>
+
+                    <div class="orbit venus-orbit">
+                        <div class="planet venus"></div>
+                    </div>
+
+                    <div class="orbit earth-orbit">
+                        <div class="planet earth"></div>
+                    </div>
+
+                    <div class="orbit mars-orbit">
+                        <div class="planet mars"></div>
+                    </div>
+
+                    <div class="orbit jupiter-orbit">
+                        <div class="planet jupiter"></div>
+                    </div>
+
+                    <div class="orbit saturn-orbit">
+                        <div class="planet saturn">
+                            <div class="ring"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="eyebrow">Why Care? · Why Need? · What is?</p>
+            <h1>The Unified Cosmic Positioning System</h1>
+
+            <div class="panel what-is-ucps-bubble">
+                <h3>What is UCPS?</h3>
+                <p>
+                    For centuries, humanity has used separate systems to answer different parts of the same question:
+                    where are we? Astronomy maps stars and galaxies, geography maps Earth coordinates, physics models
+                    spacetime, and spiritual or psychological systems describe internal development.
+                </p>
+
+                <div class="date-grid">
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Gregorian</div>
+                        <div id="val-gregorian" class="date-card-value">--</div>
+                    </div>
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Holocene (HE)</div>
+                        <div id="val-holocene" class="date-card-value">--</div>
+                    </div>
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Chinese Year</div>
+                        <div id="val-chinese" class="date-card-value val-gold">--</div>
+                    </div>
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Solar Zodiac</div>
+                        <div id="val-zodiac" class="date-card-value val-cyan">--</div>
+                    </div>
+                    <div class="date-counter-card moon-card">
+                        <div class="date-card-label">Lunar Phase</div>
+                        <div class="moon-wrap"><span id="val-moon-icon">🌑</span></div>
+                        <div id="val-moon-text" class="date-card-value">--</div>
+                    </div>
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Planetary Age</div>
+                        <div id="val-earth-age" class="date-card-value val-gold">4.543 Billion Yrs</div>
+                    </div>
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Mayan</div>
+                        <div id="val-mayan" class="date-card-value">--</div>
+                    </div>
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Hebrew</div>
+                        <div id="val-hebrew" class="date-card-value">--</div>
+                    </div>
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Islamic</div>
+                        <div id="val-islamic" class="date-card-value">--</div>
+                    </div>
+                    <div class="date-counter-card">
+                        <div class="date-card-label">Hindu</div>
+                        <div id="val-hindu" class="date-card-value">--</div>
+                    </div>
+                    <div class="date-counter-card central-example-card">
+                        <div class="date-card-label">Central U.S. Example (America/Chicago)</div>
+                        <div id="val-central-example" class="date-card-value">--</div>
+                    </div>
+                </div>
+
+                <p>
+                    Each contributes useful data, but they operate in isolation. UCPS exists to unify these perspectives
+                    into one structured language without replacing the source systems themselves.
+                </p>
+            </div>
+
+            <div class="panel originality-sidebar">
+                <h3>Why is UCPS Needed?</h3>
+
+                <p>While there are peer-level models that explore aspects of universal cycles, such as:</p>
+                <ul class="peer-models-list">
+                    <li><strong>Mainstream Cosmology:</strong> Big Bang theory, multiverse hypotheses, and cyclic
+                        universe models like the Big Bounce or Ekpyrotic Universe.</li>
+                    <li><strong>Astrophysical Observations:</strong> Galactic rotations, stellar lifecycles, and
+                        planetary motions.</li>
+                    <li><strong>Esoteric Systems:</strong> Yuga cycles, Theosophical cosmic rounds, the Kabbalistic
+                        Tree of Life, and astrological cycles.</li>
+                    <li><strong>Spiritual Cosmology:</strong> Teachings on dimensional planes, soul journeys, and
+                        fractal creation myths.</li>
+                </ul>
+
+                <p class="synthesis-note">
+                    The Unified Cosmic Positioning System (UCPS) is a groundbreaking framework that synthesizes concepts
+                    from cosmology, astrophysics, metaphysical traditions, and consciousness mapping into a unified,
+                    fractal model.
+                </p>
+
+                <p>However, none of these systems provide a comprehensive, visual, and positional model that:</p>
+                <ul class="ucps-differentiators">
+                    <li>✅ Maps a being's location within a nested cosmic framework — from Universe to Galaxy to Star
+                        to Planet to Satellite.</li>
+                    <li>✅ Integrates dynamic universe life cycles (UCLXx Gears), where each universe progresses from a
+                        Big Bang to a Great Attractor, then transitions into the next universe (U1, U-1, etc.).</li>
+                    <li>✅ Offers a living clock system where the universe itself is a measurable cycle within the
+                        greater multiversal flow.</li>
+                    <li>✅ Uses fractal gears to visualize the rotational relationships between cosmic bodies, with
+                        optional overlays based on the being's position or vibrational alignment.</li>
+                </ul>
+
+                <div class="originality-summary">
+                    <p>The UCPS is original in its scope, logic, and visual representation. It is:</p>
+                    <ul>
+                        <li>A tool for <strong>positional awareness</strong> in the cosmos.</li>
+                        <li>A framework for understanding <strong>existence as a fractal, evolving system</strong>.
+                        </li>
+                        <li>A bridge between <strong>scientific cosmology</strong> and <strong>spiritual
+                                metaphysics</strong>.</li>
+                    </ul>
+                    <p class="invitation-text">
+                        This model <strong>invites</strong> further exploration, collaborative refinement, and
+                        multidisciplinary inquiry — paving the way for a new era of multiversal navigation and cosmic
+                        understanding.
+                    </p>
+                </div>
+
+                <div class="originality-footer">
+                    <p>©2025 Cosmic Compass Collective</p>
+                    <p class="small">Patent Pending</p>
+                </div>
+            </div>
+
+            <div class="panel xyz-info-bubble">
+                <h3>The Cosmic Cartesian Coordinates</h3>
+
+                <p>
+                    If the objective of the UCPS is to pinpoint a position within the cosmos, how is it best to express
+                    that relationship? We believe it can be elegantly modeled using a simple
+                    <strong>Cartesian Coordinates</strong> system, where each axis represents a primary means of
+                    existence within the greater sphere of the cosmos.
+                </p>
+
+                <div class="xyz-callout">
+                    <p>❓ <strong>Why Are Three Axes Needed to Express the Cosmos?</strong></p>
+                </div>
+
+                <p>
+                    The cosmos is not a flat plane, nor is existence a single-threaded experience. It is a living
+                    tapestry woven through space, time, dimension, and consciousness. To navigate and understand this
+                    intricate design, a multidimensional framework is required. Three axes — X, Y, and Z — allow us to
+                    plot a soul's precise position within this living matrix.
+                </p>
+
+                <p>The distinction can be thought of in this way:</p>
+                <ul class="xyz-distinction-list">
+                    <li><strong>X</strong> specifies <em><strong>where</strong></em> and <em><strong>when</strong></em>
+                        you <strong>are</strong> — your position in spacetime.</li>
+                    <li><strong>Y</strong> specifies <em><strong>how</strong></em> <strong>you are doing</strong> —
+                        your vibrational and dimensional expression.</li>
+                    <li><strong>Z</strong> specifies <em><strong>who</strong></em> <strong>you are becoming</strong> —
+                        your evolving soul essence within the journey of consciousness.</li>
+                </ul>
+
+                <p>
+                    Together, they form a sacred triangulation of identity and presence — grounding the soul's
+                    experience
+                    across realms, dimensions, and timelines.
+                </p>
+
+                <ul class="xyz-coord-defs">
+                    <li><strong>X Coordinate (Spacetime Position):</strong> Captures where and when you exist within
+                        the physical and temporal landscape.</li>
+                    <li><strong>Y Coordinate (Dimensional Position):</strong> Captures the dimensional layer of reality
+                        you inhabit, reflecting vibrational and energetic positioning.</li>
+                    <li><strong>Z Coordinate (Existential Realms):</strong> Captures who you are becoming within the
+                        evolutionary journey of consciousness.</li>
+                </ul>
+
+                <p class="xyz-closing">
+                    Without all three, any map of existence would be incomplete — like trying to locate a star by height
+                    alone, or define a being by time without energy or intention.
+                </p>
+
+                <p class="xyz-closing">
+                    The Unified Cosmic Positioning System (UCPS) offers a way to honor all aspects of existence
+                    simultaneously: matter, energy, and consciousness — body, soul, and spirit — plotted as a dynamic
+                    living point within the grand symphony of creation.
+                </p>
+            </div>
+
+            <div id="true-date-display" class="panel compact-date">
+                <div class="panel-header-row">
+                    <h2>Current True Date</h2>
+                    <div class="panel-controls">
+                        <select id="true-date-mode" class="glass-input compact-select">
+                            <option value="now">Mode: Now</option>
+                            <option value="custom">Mode: Custom Input</option>
+                            <option value="arrival">Mode: Arrival Point</option>
+                            <option value="origin">Mode: Origin Point</option>
+                        </select>
+                        <div class="display-mode-toggles">
+                            <button class="btn-small-glow active" id="mode-btn-a"
+                                onclick="UCPS.setDisplayMode('A')">A</button>
+                            <button class="btn-small-glow" id="mode-btn-b" onclick="UCPS.setDisplayMode('B')">B</button>
+                            <button class="btn-small-glow" id="mode-btn-c" onclick="UCPS.setDisplayMode('C')">C</button>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="widget-xyz-description">
+                    UCPS unifies True Date with a three-axis model: X tracks measurable spacetime position and temporal
+                    context, Y identifies dimensional and branching reality context, and Z maps consciousness
+                    development and existential phase. Together, XYZ form a single coordinate language for where,
+                    within which layer, and at what developmental state a point of existence is located.
+                </p>
+
+                <div class="true-date-counter">
+                    <div id="true-date-counter-primary" class="counter-primary">--</div>
+                    <div id="true-date-counter-secondary" class="counter-secondary">--</div>
+                    <div id="true-date-counter-xyz" class="counter-xyz">X -- · Y -- · Z --</div>
+                </div>
+
+                <div id="true-date-ticker" class="true-date-ticker" aria-live="polite">
+                    <div class="ticker-track">
+                        <span id="true-date-ticker-text">Initializing UCPS True Date ticker...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scroll-arrow" id="scroll-arrow">
+                <span>▼</span>
+                <span class="scroll-label">Scroll to explore</span>
+            </div>
+        </div>
+    </header>
+
+    <section id="calendars" class="section section-calendars below-fold">
+        <div class="container">
+            <h2>📅 Calendars Across Civilizations</h2>
+            <p class="section-sub">The same moment in time, expressed through humanity's many timekeeping traditions.
+            </p>
+            <div class="date-grid">
+                <div class="date-counter-card">
+                    <div class="date-card-label">Gregorian</div>
+                    <div id="val-gregorian" class="date-card-value">--</div>
+                </div>
+                <div class="date-counter-card">
+                    <div class="date-card-label">Holocene (HE)</div>
+                    <div id="val-holocene" class="date-card-value">--</div>
+                </div>
+                <div class="date-counter-card">
+                    <div class="date-card-label">Chinese Year</div>
+                    <div id="val-chinese" class="date-card-value val-gold">--</div>
+                </div>
+                <div class="date-counter-card">
+                    <div class="date-card-label">Solar Zodiac</div>
+                    <div id="val-zodiac" class="date-card-value val-cyan">--</div>
+                </div>
+                <div class="date-counter-card moon-card">
+                    <div class="date-card-label">Lunar Phase</div>
+                    <div class="moon-wrap"><span id="val-moon-icon">🌑</span></div>
+                    <div id="val-moon-text" class="date-card-value">--</div>
+                </div>
+                <div class="date-counter-card">
+                    <div class="date-card-label">Planetary Age</div>
+                    <div id="val-earth-age" class="date-card-value val-gold">4.543 Billion Yrs</div>
+                </div>
+                <div class="date-counter-card">
+                    <div class="date-card-label">Mayan</div>
+                    <div id="val-mayan" class="date-card-value">--</div>
+                </div>
+                <div class="date-counter-card">
+                    <div class="date-card-label">Hebrew</div>
+                    <div id="val-hebrew" class="date-card-value">--</div>
+                </div>
+                <div class="date-counter-card">
+                    <div class="date-card-label">Islamic</div>
+                    <div id="val-islamic" class="date-card-value">--</div>
+                </div>
+                <div class="date-counter-card">
+                    <div class="date-card-label">Hindu</div>
+                    <div id="val-hindu" class="date-card-value">--</div>
+                </div>
+                <div class="date-counter-card central-example-card">
+                    <div class="date-card-label">Central U.S. Example (America/Chicago)</div>
+                    <div id="val-central-example" class="date-card-value">--</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-overview below-fold">
+        <div class="container">
+            <h2>Why we need it</h2>
+            <div class="panel extended-explainer">
+                <p>
+                    UCPS unifies True Date with a three-axis model: X tracks measurable spacetime position and temporal
+                    context, Y identifies dimensional and branching reality context, and Z maps consciousness
+                    development and existential phase. Together, XYZ form a single coordinate language for where,
+                    within which layer, and at what developmental state a point of existence is located.
+                </p>
+                <p>
+                    The X coordinate handles spacetime position with measurable hierarchy: universe, galaxy, star
+                    system, planet, satellite, geographic location, and temporal markers. This is the foundation layer,
+                    comparable to a cosmic GPS, and answers: where and when is this point located? It supports
+                    precision from large-scale cosmic context down to local Earth coordinates and timestamp references.
+                </p>
+                <p>
+                    The Y coordinate handles dimensional context and structural placement. Two entities can occupy the
+                    same physical location while existing in different dimensional bands or branching reality pathways.
+                    UCPS models this with sub-dimensional zones, reality identifiers, branch context, and vibrational
+                    markers. Y answers: within which layer or branch of reality does this point exist?
+                </p>
+                <p>
+                    The Z coordinate handles existential position: realms of consciousness, soul-journey stages, and
+                    developmental phase. Where X is location and Y is dimensional structure, Z captures what state of
+                    awareness and maturation is active. Together, X, Y, and Z become a modular architecture that can
+                    extend into visualization interfaces, simulation design, consciousness research, and educational
+                    bridges between scientific and metaphysical domains.
+                </p>
+                <p>
+                    If this framework resonates, join the community discussion, collaborate on theoretical models, and
+                    support publishing and peer review. Community participation helps improve clarity; theory
+                    collaboration strengthens model integrity; donation support helps formal documentation, review, and
+                    publication pathways that make UCPS more legible to broader research audiences.
+                </p>
+                <div class="overview-invites">
+                    <a href="#community" class="btn-small-glow">Join Community</a>
+                    <a href="#community" class="btn-small-glow">Collaborate on Theory</a>
+                    <a href="#donate" class="btn-small-glow">Support Peer-Review Publishing</a>
+                </div>
+            </div>
+
+            <div class="overview-grid">
+                <article class="info-card">
+                    <div class="card-icon-row">
+                        <img src="assets/cosmic_map.png" alt="Cosmic map icon" class="info-icon">
+                        <span class="emoji-mark">🛰️</span>
+                        <span class="outline-mark">◇</span>
+                    </div>
+                    <h3>🛰️ X Coordinate: Spacetime Position</h3>
+                    <p>Defines measurable placement across universe, galaxy, star system, planet, geographic
+                        coordinates,
+                        and temporal markers.</p>
+                    <ul>
+                        <li>Universe, galaxy, and star system hierarchy</li>
+                        <li>Planetary and local geographic precision</li>
+                        <li>Temporal context for when a point exists</li>
+                    </ul>
+                </article>
+
+                <article class="info-card">
+                    <div class="card-icon-row">
+                        <img src="assets/xyz_model.png" alt="XYZ model icon" class="info-icon">
+                        <span class="emoji-mark">🧭</span>
+                        <span class="outline-mark">⬡</span>
+                    </div>
+                    <h3>🧭 Y Coordinate: Dimensional Context</h3>
+                    <p>Defines dimensional layer and branching reality structure so equivalent physical positions can be
+                        differentiated by context.</p>
+                    <ul>
+                        <li>Sub-dimensional zone tracking</li>
+                        <li>Reality and branch identifiers</li>
+                        <li>Vibrational context markers</li>
+                    </ul>
+                </article>
+
+                <article class="info-card">
+                    <div class="card-icon-row">
+                        <img src="assets/natal_chart.png" alt="Consciousness chart icon" class="info-icon">
+                        <span class="emoji-mark">🧠</span>
+                        <span class="outline-mark">◯</span>
+                    </div>
+                    <h3>🧠 Z Coordinate: Existential Position</h3>
+                    <p>Captures consciousness development through realms, soul journey stages, and existential phases.
+                    </p>
+                    <ul>
+                        <li>Realms: physical through source</li>
+                        <li>Stages: incarnation through ascension</li>
+                        <li>Phases: exploration to integration</li>
+                    </ul>
+                </article>
+            </div>
+
+            <article class="panel vision-panel">
+                <h3>🧩 Architecture and Long-Term Vision</h3>
+                <p>
+                    UCPS is modular: a core coordinate framework (X, Y, Z), advanced constructs, and visualization
+                    interfaces such as Compass and Tesseract models. It supports mapping, simulation, education,
+                    consciousness research, and immersive narrative systems.
+                </p>
+                <p>
+                    The long-term objective is a shared positioning language that harmonizes space, time, dimension,
+                    and consciousness within a unified structure.
+                </p>
+            </article>
+        </div>
+    </section>
+
+
+
+    <section id="get-card" class="section section-card below-fold">
+        <div class="container">
+            <h2 class="card-title">Get Your <span>Cosmic Card</span></h2>
+            <p class="section-sub">Enter core origin details to generate your current card profile.</p>
+
+            <div id="position-widget" class="panel">
+                <div class="widget-split-layout">
+                    <div id="position-result" class="widget-content">
+                        <div class="membership-card cosmic-card-monolith" id="cosmic-card-capture">
+                            <div class="holo-overlay"></div>
+                            <div id="card-loading" class="card-loading-overlay" style="display:none;">
+                                <div class="glyph-spinner">✶ ◇ ⬡ ✧ ∞</div>
+                                <div class="loading-text">Calculating Cosmic Coordinates</div>
+                            </div>
+
+                            <div class="card-sketch-layout">
+                                <div class="sketch-avatar-wrap">
+                                    <img id="res-avatar-img" alt="Profile avatar" style="display:none;">
+                                    <span id="res-avatar-glyph">✦</span>
+                                </div>
+
+                                <div class="sketch-name-block">
+                                    <div class="sketch-label">NAME</div>
+                                    <div class="sketch-value" id="res-name">Traveler...</div>
+                                </div>
+
+                                <div class="sketch-life-path">
+                                    <span class="sketch-label">Life Path:</span>
+                                    <span class="sketch-value" id="life-path-badge">--</span>
+                                </div>
+
+                                <div class="sketch-sign-wrap">
+                                    <div class="sketch-star" aria-hidden="true">☆</div>
+                                    <div class="sketch-sign-text">sign: <span id="res-sign">Unknown</span> <span
+                                            id="res-sign-glyph">✦</span></div>
+                                </div>
+
+                                <div class="sketch-chart-wrap">
+                                    <div class="sketch-chart-label">natal chart</div>
+                                </div>
+                            </div>
+
+                            <div id="card-lore" class="card-lore sketch-hidden">Generate your card to reveal your cosmic
+                                lore.</div>
+                            <div id="member-since" style="display:none;">2026</div>
+                            <div id="membership-id" style="display:none;">00057</div>
+                            <div id="res-email" style="display:none;"></div>
+                            <div id="res-dob" style="display:none;"></div>
+                            <div id="res-origin" style="display:none;"></div>
+                            <div id="res-position" style="display:none;">ULC0.PO.Terra.Z3</div>
+
+                            <div class="share-actions">
+                                <button id="share-btn" class="btn-small-glow" type="button">Share to Story</button>
+                                <button id="save-image-btn" class="btn-small-glow" type="button">Save Image</button>
+                            </div>
+
+                            <div id="quiz-view" style="display:none;"></div>
+                            <div id="quiz-result" style="display:none;"></div>
+                        </div>
+                    </div>
+
+                    <div id="position-form" class="widget-content">
+                        <div class="form-group">
+                            <label for="input-name">Name</label>
+                            <input type="text" id="input-name" class="glass-input" placeholder="Traveler Name">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="input-dob">Date of Arrival</label>
+                                <div class="input-shell">
+                                    <input type="date" id="input-dob" class="glass-input">
+                                    <span class="field-icon">◫</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-tob">Time</label>
+                                <div class="input-shell">
+                                    <input type="time" id="input-tob" class="glass-input">
+                                    <span class="field-icon">◷</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-place">Origin Point</label>
+                            <div class="input-shell">
+                                <input type="text" id="input-place" class="glass-input" placeholder="City of Birth"
+                                    list="city-list">
+                                <span class="field-icon">◉</span>
+                            </div>
+                            <datalist id="city-list"></datalist>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-location">Cosmic Location</label>
+                            <div class="input-shell">
+                                <select id="input-location" class="glass-input">
+                                    <option value="Terra" selected>Terra (Earth)</option>
+                                    <option value="Luna">Luna (Moon)</option>
+                                    <option value="ISS">ISS (Station)</option>
+                                    <option value="Mars">Mars</option>
+                                    <option value="Titan">Titan</option>
+                                    <option value="Comet">Comet 67P</option>
+                                    <option value="Sol">Sol (Sun)</option>
+                                    <option value="Polaris">Polaris</option>
+                                    <option value="Andromeda">Andromeda</option>
+                                </select>
+                                <span class="field-icon">⌄</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-email">Email</label>
+                            <input type="email" id="input-email" class="glass-input" placeholder="you@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-photo">Profile Image</label>
+                            <input type="file" id="input-photo" class="glass-input" accept="image/*">
+                        </div>
+
+                        <button id="calculate-pos-btn" class="btn-glow">Generate Cosmic Card</button>
+                        <div class="form-actions-secondary">
+                            <button id="recalc-btn" class="btn-small-glow" type="button">Recalculate</button>
+                            <button id="quiz-btn" class="btn-small-glow" style="display:none;"
+                                type="button">Quiz</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-founder below-fold">
+        <div class="container">
+            <div class="founder-card panel">
+                <div class="founder-image-wrapper">
+                    <img src="assets/jen_laird.png" alt="Jen Laird" class="founder-img">
+                </div>
+                <div class="founder-text">
+                    <h2>About the Founder: Jen Laird</h2>
+                    <p>Jen Laird is the visionary architect and founder of the Unified Cosmic Positioning System (UCPS),
+                        a framework born from a lifetime of navigating a world that often felt out of sync. Growing up
+                        with a neurodivergent perspective, Jen experienced reality through a unique lens of pattern
+                        recognition and hypersensitivity, traits that became the bedrock of her ability to decode the
+                        complex geometry of the cosmos.</p>
+                    <p>Her journey was shaped by significant health mysteries that remained unsolved by conventional
+                        medicine for years. It was only through her deep, intuitive connection to spirituality and the
+                        study of vibrational resonance that she began to find answers. By viewing the human body not
+                        just as a biological machine, but as a node within a larger cosmic grid, she was able to resolve
+                        her own health crises, leading to the realization that alignment with spacetime coordinates is
+                        essential for holistic well-being.</p>
+                    <p>Jen’s background as a pattern-seeker allowed her to synthesize disparate fields, from quantum
+                        physics and Cartesian mathematics to ancient spiritual wisdom, into the UCPS. Today, she leads
+                        the Cosmic Compass Collective, dedicated to helping others find their own coordinates and
+                        navigate their soul’s journey with clarity and purpose.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="feedback" class="section below-fold">
+        <div class="container narrow">
+            <h2>Feedback</h2>
+            <p class="section-sub">Share improvements, edge cases, or use-case ideas. Submission routing is being
+                finalized.</p>
+            <form class="panel feedback-form" onsubmit="return false;">
+                <div class="form-group">
+                    <label for="feedback-name">Name</label>
+                    <input id="feedback-name" type="text" class="glass-input" placeholder="Your name">
+                </div>
+                <div class="form-group">
+                    <label for="feedback-email">Email</label>
+                    <input id="feedback-email" type="email" class="glass-input" placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="feedback-message">Message</label>
+                    <textarea id="feedback-message" class="glass-input" rows="5"
+                        placeholder="What should we improve?"></textarea>
+                </div>
+                <button class="btn-glow" type="submit">Send Feedback (Coming Soon)</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="community" class="section below-fold">
+        <div class="container narrow">
+            <h2>Community</h2>
+            <p class="section-sub">Join the live conversation in the UCPS Telegram space.</p>
+            <div class="panel community-links single-community">
+                <a href="https://t.me/" target="_blank" rel="noopener noreferrer" class="community-bubble">💬 Telegram
+                    Group Chat: The Cosmic Cafe</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="donate" class="section below-fold">
+        <div class="container narrow">
+            <h2>Donate</h2>
+            <div class="panel donate-panel">
+                <p>Support ongoing UCPS research, publication, and interface development.</p>
+                <button class="btn-glow" type="button">Donate (Integration Coming Soon)</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2026 Cosmic Compass Collective</p>
+        <p class="small">Patent Pending</p>
+    </footer>
+
+    <script src="js/ucps_logic.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/location_data.js"></script>
+    <script src="js/ephemeris.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="js/position_widget.js"></script>
+</body>
+
+</html>

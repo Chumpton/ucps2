@@ -264,7 +264,7 @@ const UCPS = {
                 hour12: true,
                 timeZoneName: 'short'
             }).format(now);
-            tickerEl.innerText = `TRUE DATE | ${str} | CENTRAL U.S. ${centralSample} | XYZ: X SPACETIME · Y DIMENSION · Z SOUL STAGE`;
+            tickerEl.innerText = `COSMIC COMPASS | ${str} | CENTRAL U.S. ${centralSample} | XYZ: X SPACETIME · Y DIMENSION · Z SOUL STAGE`;
         }
 
         const universalEl = document.getElementById('universal-time-display');

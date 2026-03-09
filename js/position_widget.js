@@ -199,7 +199,7 @@ function initPositionWidget() {
             const canvas = await captureCardImage();
             if (!canvas) return;
             const link = document.createElement('a');
-            link.download = 'ucps-cosmic-card.png';
+            link.download = 'cosmic-compass-card.png';
             link.href = canvas.toDataURL('image/png');
             link.click();
         });
@@ -211,16 +211,16 @@ function initPositionWidget() {
             if (!canvas) return;
             canvas.toBlob(async (blob) => {
                 if (!blob) return;
-                const file = new File([blob], 'ucps-cosmic-card.png', { type: 'image/png' });
+                const file = new File([blob], 'cosmic-compass-card.png', { type: 'image/png' });
                 if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
                     await navigator.share({
                         files: [file],
                         title: 'My Cosmic Card',
-                        text: 'Generated with UCPS.'
+                        text: 'Generated with The Cosmic Compass.'
                     });
                 } else {
                     const link = document.createElement('a');
-                    link.download = 'ucps-cosmic-card.png';
+                    link.download = 'cosmic-compass-card.png';
                     link.href = canvas.toDataURL('image/png');
                     link.click();
                 }

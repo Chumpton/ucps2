@@ -165,12 +165,24 @@ class NatalChartGenerator {
             isValid = false;
         }
 
+        // Also accept unknown-time if checkbox checked
+        if (!isValid) {
+            const unknownTime = document.getElementById('natal-unknown-time');
+            if (unknownTime && unknownTime.checked) {
+                const requiredNoTime = ['natal-name', 'natal-month', 'natal-day', 'natal-year', 'natal-email'];
+                isValid = requiredNoTime.every(id => {
+                    const el = document.getElementById(id);
+                    return el && el.value.trim() !== '';
+                }) && !!(locEl && locEl.dataset.lat);
+            }
+        }
+
         if (isValid) {
             this.generateBtn.classList.add('valid-pulse');
-            this.generateBtn.innerHTML = `Get My Coordinates <span style="color: var(--accent-magenta); margin-left: 0.3rem;">></span>`;
+            this.generateBtn.innerHTML = `Calibrate My Compass <span style="color: var(--accent-magenta); margin-left: 0.3rem;">&gt;</span>`;
         } else {
             this.generateBtn.classList.remove('valid-pulse');
-            this.generateBtn.innerHTML = `Get My Coordinates <span style="color: rgba(255,255,255,0.2); margin-left: 0.3rem;">></span>`;
+            this.generateBtn.innerHTML = `Calibrate My Compass <span style="color: rgba(255,255,255,0.2); margin-left: 0.3rem;">&gt;</span>`;
         }
     }
 
@@ -379,6 +391,21 @@ class NatalChartGenerator {
         const timeDisplay = document.getElementById('natal-time-display');
         if (timeDisplay) timeDisplay.style.opacity = '0';
 
+        // Collect form data for Supabase submission
+        const name = (document.getElementById('natal-name')?.value || '').trim();
+        const email = (document.getElementById('natal-email')?.value || '').trim();
+        const month = document.getElementById('natal-month')?.value || '';
+        const day = document.getElementById('natal-day')?.value || '';
+        const year = document.getElementById('natal-year')?.value || '';
+        const hour = document.getElementById('natal-hour')?.value || '';
+        const minute = document.getElementById('natal-minute')?.value || '';
+        const ampm = document.getElementById('natal-ampm')?.value || 'AM';
+        const locEl = document.getElementById('natal-location');
+        const location = locEl?.value || '';
+        const lat = locEl?.dataset.lat || null;
+        const lng = locEl?.dataset.lng || null;
+        const subscribe = document.getElementById('natal-subscribe')?.checked ?? true;
+
         // Simulate calculation delay
         setTimeout(() => {
             const activeNodes = this.calculateMockPositions();
@@ -412,80 +439,159 @@ class NatalChartGenerator {
                 filters.style.pointerEvents = 'auto';
             }
 
-            this.populateSoulResults();
+            const { soulNode, serialNumber, astroSign, hdType, hdProfile } = this.populateSoulResults();
 
             if (timeDisplay) {
-                const hh = document.getElementById('natal-hour').value;
-                const mm = document.getElementById('natal-minute').value;
-                const ampm = document.getElementById('natal-ampm').value;
+                const hh = document.getElementById('natal-hour')?.value || '--';
+                const mm = document.getElementById('natal-minute')?.value || '--';
                 timeDisplay.innerHTML = `${hh}:${mm} ${ampm}`;
                 timeDisplay.style.opacity = '1';
+            }
+
+            // ── Supabase submission ──────────────────────────────
+            if (window.CosmicDB) {
+                const birthDate = `${year}-${month}-${day}`;
+                const birthTime = `${hour}:${minute} ${ampm}`;
+
+                CosmicDB.saveCalibration({
+                    name, email, subscribe,
+                    birth_date: birthDate,
+                    birth_time: birthTime,
+                    birth_location: location,
+                    birth_lat: lat ? parseFloat(lat) : null,
+                    birth_lng: lng ? parseFloat(lng) : null,
+                    sun_sign: astroSign,
+                    hd_type: hdType,
+                    hd_profile: hdProfile,
+                    z_node: soulNode,
+                    serial_number: serialNumber
+                }).then(res => {
+                    if (res.ok) console.log('[CosmicDB] Calibration saved ✓');
+                });
+
+                if (subscribe && email) {
+                    CosmicDB.subscribeEmail(email, 'compass');
+                }
             }
         }, 800);
     }
 
+    // Generate a deterministic Cosmic Serial Number from birth data
+    generateSerialNumber(year, month, day, lat, lng) {
+        const latInt = Math.abs(Math.round((parseFloat(lat) || 0) * 100));
+        const lngInt = Math.abs(Math.round((parseFloat(lng) || 0) * 100));
+        const seed = (parseInt(year) * 366 + parseInt(month) * 31 + parseInt(day) + latInt + lngInt) % 9999;
+        const suffix = seed.toString().padStart(4, '0');
+        const dateStr = `${year}${String(month).padStart(2, '0')}${String(day).padStart(2, '0')}`;
+        return `CC-${dateStr}-${suffix}`;
+    }
+
     populateSoulResults() {
         const soulResults = document.getElementById('soul-results-card');
-        if (!soulResults) return;
+        if (!soulResults) return {};
 
-        const year = document.getElementById('natal-year').value || '2000';
-        const month = document.getElementById('natal-month').value || '01';
+        // ── Gather form inputs ──────────────────────────────
+        const year = document.getElementById('natal-year')?.value || '2000';
+        const month = document.getElementById('natal-month')?.value || '01';
+        const day = document.getElementById('natal-day')?.value || '01';
+        const hourRaw = parseInt(document.getElementById('natal-hour')?.value || '12');
+        const minuteRaw = parseInt(document.getElementById('natal-minute')?.value || '0');
+        const ampm = document.getElementById('natal-ampm')?.value || 'AM';
+        const locEl = document.getElementById('natal-location');
+        const lat = locEl?.dataset.lat || '0';
+        const lng = locEl?.dataset.lng || '0';
+
+        // Convert to 24-hour
+        const hour24 = ampm === 'PM'
+            ? (hourRaw === 12 ? 12 : hourRaw + 12)
+            : (hourRaw === 12 ? 0 : hourRaw);
+
         const monthInt = parseInt(month, 10);
-        const dayInt = parseInt(document.getElementById('natal-day').value || '01', 10);
+        const dayInt = parseInt(day, 10);
 
-        const hdTypes = ["Manifestor", "Generator", "Manifesting Generator", "Projector", "Reflector"];
-        const profiles = ["1/3 Investigator Martyr", "2/4 Hermit Opportunist", "3/5 Martyr Heretic", "4/6 Opportunist Role Model", "5/1 Heretic Investigator", "6/2 Role Model Hermit"];
+        // ── Sun / Moon / Rising ─────────────────────────────
+        const sunIdx = typeof getSunSignIndex !== 'undefined' ? getSunSignIndex(monthInt, dayInt) : 0;
+        const moonIdx = typeof getMoonSignIndex !== 'undefined' ? getMoonSignIndex(year, month, day, hour24) : 0;
+        const risingIdx = typeof getRisingSignIndex !== 'undefined' ? getRisingSignIndex(year, month, day, hour24, minuteRaw, lng) : 0;
 
-        const hdType = hdTypes[(year % 5)];
-        const hdProfile = profiles[(monthInt % 6)];
+        const sunData = (typeof ZODIAC !== 'undefined') ? ZODIAC[sunIdx] : { name: '--', glyph: '☉', color: '#fff' };
+        const moonData = (typeof ZODIAC !== 'undefined') ? ZODIAC[moonIdx] : { name: '--', glyph: '☽', color: '#fff' };
+        const risingData = (typeof ZODIAC !== 'undefined') ? ZODIAC[risingIdx] : { name: '--', glyph: '↑', color: '#fff' };
 
-        // True astrological simple mapping
-        const getSign = (m, d) => {
-            if ((m == 1 && d >= 20) || (m == 2 && d <= 18)) return "Aquarius";
-            if ((m == 2 && d >= 19) || (m == 3 && d <= 20)) return "Pisces";
-            if ((m == 3 && d >= 21) || (m == 4 && d <= 19)) return "Aries";
-            if ((m == 4 && d >= 20) || (m == 5 && d <= 20)) return "Taurus";
-            if ((m == 5 && d >= 21) || (m == 6 && d <= 20)) return "Gemini";
-            if ((m == 6 && d >= 21) || (m == 7 && d <= 22)) return "Cancer";
-            if ((m == 7 && d >= 23) || (m == 8 && d <= 22)) return "Leo";
-            if ((m == 8 && d >= 23) || (m == 9 && d <= 22)) return "Virgo";
-            if ((m == 9 && d >= 23) || (m == 10 && d <= 22)) return "Libra";
-            if ((m == 10 && d >= 23) || (m == 11 && d <= 21)) return "Scorpio";
-            if ((m == 11 && d >= 22) || (m == 12 && d <= 21)) return "Sagittarius";
-            return "Capricorn";
-        };
+        // ── HD Type & Profile ───────────────────────────────
+        const hdTypes = ['Manifestor', 'Generator', 'Manifesting Generator', 'Projector', 'Reflector'];
+        const profiles = ['1/3 Investigator Martyr', '2/4 Hermit Opportunist', '3/5 Martyr Heretic',
+            '4/6 Opportunist Role Model', '5/1 Heretic Investigator', '6/2 Role Model Hermit'];
+        const hdType = hdTypes[parseInt(year) % 5];
+        const hdProfile = profiles[monthInt % 6];
+        const hdMeta = (typeof HD_GLYPHS !== 'undefined') ? (HD_GLYPHS[hdType] || { glyph: '✦', color: '#fff' }) : { glyph: '✦', color: '#fff' };
 
-        const astroSign = getSign(monthInt, dayInt);
+        // ── Cosmic Archetype lookup ─────────────────────────
+        let archetype = { title: '—', desc: '—' };
+        if (typeof COSMIC_ARCHETYPES !== 'undefined') {
+            const signEntry = COSMIC_ARCHETYPES[sunData.name];
+            if (signEntry && signEntry[hdType]) archetype = signEntry[hdType];
+        }
+
+        // ── True Soul Time ──────────────────────────────────
+        const trueSoulTime = (typeof getLocalSiderealTime !== 'undefined')
+            ? getLocalSiderealTime(year, month, day, hour24, minuteRaw, lng)
+            : '--h --m --s';
+
+        // ── Z-Axis Soul Node & Serial Number ───────────────
         const soulNode = `Z-${year.toString().slice(-2)}.${monthInt}.${Math.floor(Math.random() * 9)}`;
+        const serialNumber = this.generateSerialNumber(year, month, dayInt, lat, lng);
 
-        document.getElementById('soul-hd-type').innerText = hdType;
-        document.getElementById('soul-hd-profile').innerText = hdProfile;
-        document.getElementById('soul-astro-sign').innerText = astroSign + ' ☉';
+        // ── Populate DOM ────────────────────────────────────
+        const set = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+        const setHtml = (id, val) => { const el = document.getElementById(id); if (el) el.innerHTML = val; };
+        const setStyle = (id, prop, val) => { const el = document.getElementById(id); if (el) el.style[prop] = val; };
 
-        // Z-Node is now only displayed in the main ticker
-        const soulZNodeSpan = document.getElementById('soul-z-node');
-        if (soulZNodeSpan) soulZNodeSpan.innerText = soulNode;
+        // Sun
+        setHtml('soul-sun-glyph', `<span style="color:${sunData.color}">${sunData.glyph}</span>`);
+        set('soul-astro-sign', sunData.name);
+
+        // Moon
+        setHtml('soul-moon-glyph', `<span style="color:${moonData.color}">${moonData.glyph}</span>`);
+        set('soul-moon-sign', moonData.name);
+
+        // Rising
+        setHtml('soul-rising-glyph', `<span style="color:${risingData.color}">${risingData.glyph}</span>`);
+        set('soul-rising-sign', risingData.name);
+
+        // Human Design
+        setHtml('soul-hd-glyph', `<span style="color:${hdMeta.color}">${hdMeta.glyph}</span>`);
+        set('soul-hd-type', hdType);
+        set('soul-hd-profile', hdProfile);
+
+        // Archetype
+        set('soul-archetype-title', archetype.title);
+        set('soul-archetype-desc', archetype.desc);
+
+        // True Soul Time
+        set('soul-true-time', trueSoulTime);
+
+        // Z-Node & Serial
+        set('soul-z-node', soulNode);
+        set('soul-serial-number', serialNumber);
 
         soulResults.style.display = 'block';
 
-        // Update the main widgets with the newly found coordinates
+        // Update tickers
         const tickerEl = document.getElementById('true-date-ticker-text');
-        if (tickerEl) tickerEl.innerText = `TRUE DATE | CUSTOM ORIGIN RECALIBRATED | SOUL NODE ESTABLISHED: ${soulNode} (X: Terra, Y: 3D)`;
-
+        if (tickerEl) tickerEl.innerText = `TRUE DATE | COMPASS CALIBRATED | ${sunData.name} ☉ · ${moonData.name} ☽ · ${risingData.name} ↑ | SOUL NODE: ${soulNode} | SERIAL: ${serialNumber}`;
         const xyzEl = document.getElementById('true-date-counter-xyz');
         if (xyzEl) xyzEl.innerText = `X SPACETIME · Y DIMENSION · ${soulNode}`;
 
-        // Update New True Date Breakdown Ticker
+        const locName = locEl?.value ? locEl.value.split(',')[0] : 'Terra';
         const tdX = document.getElementById('td-x');
         const tdY = document.getElementById('td-y');
         const tdZ = document.getElementById('td-z');
-
-        const locInput = document.getElementById('natal-location');
-        const locName = locInput && locInput.value ? locInput.value.split(',')[0] : 'Terra';
-
         if (tdX) tdX.innerHTML = `X: <span style="color:#fff">${locName}</span>`;
         if (tdY) tdY.innerHTML = `Y: <span style="color:#fff">3rd Dens.</span>`;
         if (tdZ) tdZ.innerHTML = `Z: <span style="color:#fff">${soulNode}</span>`;
+
+        return { soulNode, serialNumber, astroSign: sunData.name, hdType, hdProfile };
     }
 
     calculateMockPositions() {
